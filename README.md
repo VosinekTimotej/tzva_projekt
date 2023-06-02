@@ -1,4 +1,6 @@
 # tzva_projekt
-Run npm start
-na telefonu si instaliraj expo go
-skeniraj qr kodo
+
+##Navodila za zagon aplikacije
+- Run npm start
+- Na telefonu si instaliraj expo go
+- Skeniraj qr kodo
