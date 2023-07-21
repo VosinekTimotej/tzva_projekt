@@ -10,7 +10,7 @@ const SignUpForm = ({navigation}) => {
                     placeholder='Email'
                     placeholderTextColor="#FFF"
                     autoCapitalize='none'
-                    textContentType='email'
+                    textContentType='emailAddress'
                     autoCorrect={false}
                     autoFocus={true}
                 />

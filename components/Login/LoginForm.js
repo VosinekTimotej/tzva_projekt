@@ -1,50 +1,93 @@
 import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const LoginForm = ({navigation}) => {
+
+    const LoginSchema = Yup.object().shape({
+        username: Yup.string()
+            .required('Username is required')
+            .min(3, 'Username must be at least 3 characters long')
+            .matches(/[a-zA-Z]/, 'Username must contain at least 1 letter'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Password must be at least 8 characters long')
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+                'Password must have at least one lowercase, one uppercase, one number, and one special character'
+            )
+    })
+
+    const handleLogin = (values) => {
+        console.log('username and password:', values.username, values.password);
+    };
+
     return (
-        <View style={styles.container}>
-            <View style={styles.usernameContainer}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder='Username'
-                    placeholderTextColor="#FFF"
-                    autoCapitalize='none'
-                    textContentType='username'
-                    autoFocus={true}
-                    // onChangeText={}
-                    // onBlur={}
-                    // value={}
-                />
-            </View>
-            <View style={styles.passwordContainer}>
-                <TextInput
-                    style={styles.TextInput}
-                    placeholder='Password'
-                    placeholderTextColor="#FFF"
-                    autoCapitalize='none'
-                    textContentType='password'
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                    // onChangeText={}
-                    // onBlur={}
-                    // value={}
-                />
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.loginButton}>
-                    <Text style={styles.loginButtonText}>Login</Text>
-                </TouchableOpacity>
-            </View>
 
-            <View style={styles.signUpContainer}>
-                <Text>Dont have account? </Text>
-                <TouchableOpacity onPress={() => navigation.push('SignUpScreen')}>
-                    <Text style={styles.signUpText}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
+        <Formik
+            initialValues={{username:'', password:''}}
+            onSubmit={(values) => {handleLogin(values)}}
+            validationSchema={LoginSchema}
+            validateOnMount={true}
+        >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
+                <View style={styles.container}>
+                    <View style={styles.usernameContainer}>
+                    {errors.username && (
+                        <Text style={styles.errorText}>{errors.username}</Text>
+                    )}
+                        <TextInput
+                            style={[styles.TextInput,
+                                // { color: values.username.length < 1 || errors.username ? 'red' : '#fff'}
+                            ]}
+                            placeholder='Username'
+                            placeholderTextColor="#FFF"
+                            autoCapitalize='none'
+                            textContentType='username'
+                            autoFocus={true}
+                            onChangeText={handleChange('username')}
+                            onBlur={handleBlur('username')}
+                            value={values.username}
+                        />
+                    </View>
+                    
+                    <View style={styles.passwordContainer}>
+                    {errors.password && (
+                        <Text style={styles.errorText}>{errors.password}</Text>
+                    )}
+                        <TextInput
+                            style={styles.TextInput}
+                            placeholder='Password'
+                            placeholderTextColor="#FFF"
+                            autoCapitalize='none'
+                            textContentType='password'
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                        />
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.loginButton(isValid)} onPress={handleSubmit} disabled={!isValid}>
+                            <Text style={styles.loginButtonText}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
+        
+                    <View style={styles.signUpContainer}>
+                        <Text>Dont have account? </Text>
+                        <TouchableOpacity onPress={() => navigation.push('SignUpScreen')}>
+                            <Text style={styles.signUpText}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )}
+        </Formik>
 
-        </View>
+
+
+        
     )
 }
 
@@ -92,13 +135,13 @@ const styles = StyleSheet.create({
     signUpText:{
         color: '#6BB0F5'
     },
-    loginButton: {
+    loginButton: isValid=>({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#4CAF50',
+        backgroundColor: isValid ? '#4CAF50' : '#000',
         borderRadius: 25,
-    },
+    }),
     loginButtonText: {
         color: '#FFF',
         fontSize: 15,
