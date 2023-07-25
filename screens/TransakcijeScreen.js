@@ -1,16 +1,21 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
 import Transakcija from '../components/Transakcije/Transakcija'
+import ThemeContext from '../ThemeContext'
+import DarkTheme from '../DarkTheme'
+import LightTheme from '../LightTheme'
 
-const TransakcijeScreen = () => {
+const TransakcijeScreen = ({navigation}) => {
+    const { isDarkTheme } = useContext(ThemeContext);
+    const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
-        <View style={styles.container}> 
-            <Header />
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
+            <Header navigation={navigation}/>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {TRANSAKCIJE.map((transakcija, index) => (
-                    <Transakcija transakcija={transakcija} key={transakcija.id} />
+                    <Transakcija transakcija={transakcija} key={transakcija.id}  />
                 ))}
             </ScrollView>
         </View>

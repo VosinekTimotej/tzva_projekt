@@ -1,24 +1,33 @@
-import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
-import React from 'react'
+import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useContext } from 'react'
+import ThemeContext from '../../ThemeContext';
+import DarkTheme from '../../DarkTheme';
+import LightTheme from '../../LightTheme';
 
-const screenWidth = Dimensions.get('window').width;
-const logoSize = screenWidth * 0.3;
-const headerTextSize = Math.min(24, screenWidth * 0.05);
-
-const Header = () => {
-  return (
-    <View style={styles.container}>
-        <View style={styles.logoContainer}>
-            <TouchableOpacity onPress={()=> {console.log('Hocem domov ali nekam')}}>
-                <Image
-                        style={styles.logoImg} 
-                        source={require('../../assets/piggy-bank.png')} 
+const Header = ({navigation}) => {
+    const { isDarkTheme } = useContext(ThemeContext);
+    const theme = isDarkTheme ? DarkTheme : LightTheme;
+    return (
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+            <View style={styles.logoContainer}>
+                <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
+                    <Image
+                            style={styles.logoImg} 
+                            source={theme.logoSource}
+                        />
+                </TouchableOpacity>
+            </View>
+            <Text style={[styles.text, { color: theme.textColor }]}>Transakcije</Text>
+            <View>
+                <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
+                    <Image 
+                        style={styles.logoImg}
+                        source={theme.settingsSource}
                     />
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         </View>
-        <Text style={styles.text}>Transakcije</Text>
-    </View>
-  )
+    )
 }
 
 export default Header
@@ -29,9 +38,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         marginBottom: 10,
-    },
-    logoContainer:{
-
+        justifyContent:'space-between',
     },
     logoImg:{
         width: 40,
@@ -39,8 +46,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     text:{
-        marginLeft: 0.35 * Dimensions.get('window').width,
-        fontSize: 15,
-        fontWeight: 'bold',
+        fontSize: 16,
+        fontWeight: 'bold'
     },
 })
