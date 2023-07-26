@@ -8,24 +8,17 @@ const Header = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
-        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <View style={styles.logoContainer}>
-                <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
-                    <Image
-                            style={styles.logoImg} 
-                            source={theme.logoSource}
-                        />
-                </TouchableOpacity>
-            </View>
-            <Text style={[styles.text, { color: theme.textColor }]}>Transakcije</Text>
-            <View>
-                <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
+            <View style={styles.backContainer}>
+                <TouchableOpacity onPress={() => navigation.push('TransakcijeScreen')}>
                     <Image 
-                        style={styles.logoImg}
-                        source={theme.settingsSource}
+                        style={styles.backLogo} 
+                        source={theme.backSource}
                     />
                 </TouchableOpacity>
             </View>
+            <Text style={[styles.text, { color: theme.textColor }]}>Settings</Text>
+            <Text></Text>
         </View>
     )
 }
@@ -38,13 +31,18 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 0,
         justifyContent:'space-between',
+        borderBottomWidth: 1,
     },
-    logoImg:{
-        width: 40,
+    backContainer:{
+
+    },
+    backLogo:{
+        width: 30,
         height: 40,
         resizeMode: 'contain',
+        paddingBottom: 10,
     },
     text:{
         fontSize: 16,
