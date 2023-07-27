@@ -7,6 +7,8 @@ import ThemeContext from '../ThemeContext'
 import DarkTheme from '../DarkTheme'
 import LightTheme from '../LightTheme'
 
+//TODO Footer 
+
 const TransakcijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;

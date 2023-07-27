@@ -5,6 +5,21 @@
 - Na telefonu si instaliraj expo go
 - Skeniraj qr kodo
 
+## TODO
+- [ ] Main footer za navigacijo
+- [ ] Uredit izgled
+- [ ] Server dodat pri login/signup
+- [ ] Server za pridobivanje transakcij
+- [ ] Dodaj kategorijo 
+- [ ] Meje screen
+- [ ] Dodaj mejo
+- [ ] Racuni screen
+- [ ] Dodaj racun
+- [ ] Dodajanje transakcije
+- [ ] Screen odhodki
+- [ ] Screen prihodki
+- [ ] Stanje screen
+- [ ] Podrobno o transakciji screen
 
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>

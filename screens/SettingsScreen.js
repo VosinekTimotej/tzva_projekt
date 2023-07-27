@@ -5,6 +5,7 @@ import Header from '../components/Settings/Header';
 import LightTheme from '../LightTheme';
 import DarkTheme from '../DarkTheme';
 
+//TODO Footer 
 
 const SettingsScreen = ({navigation}) => {
 
@@ -36,6 +37,12 @@ const SettingsScreen = ({navigation}) => {
             <TouchableOpacity onPress={()=>{ console.log('Nastavi meje')}}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Nastavljanje mej</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{ console.log('Nastavi valuto')}}>
+                <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+                    <Text style={[styles.text, { color: theme.textColor }]}>Spreminjanje valute</Text>
                 </View>
             </TouchableOpacity>
 
