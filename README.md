@@ -13,6 +13,7 @@
 - [ ] Dodaj kategorijo 
 - [ ] Meje screen
 - [ ] Dodaj mejo
+- [ ] Notification za  bližanje meji
 - [ ] Racuni screen
 - [ ] Dodaj racun
 - [ ] Dodajanje transakcije
