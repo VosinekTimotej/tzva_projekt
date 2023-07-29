@@ -14,7 +14,7 @@
 - [ ] Meje screen
 - [ ] Dodaj mejo
 - [ ] Notification za  bližanje meji
-- [ ] Racuni screen
+- [x] Racuni screen
 - [ ] Dodaj racun
 - [ ] Dodajanje transakcije
 - [ ] Screen odhodki
