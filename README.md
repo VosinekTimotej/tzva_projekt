@@ -21,7 +21,7 @@
 - [ ] Screen prihodki
 - [ ] Stanje screen
 - [ ] Podrobno o transakciji screen
-- [ ] Info screen
+- [x] Info screen
 - [ ] Screen za spreminjane user info
 - [ ] Screen change password
 - [ ] Spreminjanje valute
