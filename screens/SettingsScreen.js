@@ -28,7 +28,7 @@ const SettingsScreen = ({navigation}) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{ console.log('Racuni')}}>
+            <TouchableOpacity onPress={() => navigation.push('RacuniScreen')}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Racuni</Text>
                 </View>

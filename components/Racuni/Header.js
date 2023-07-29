@@ -10,7 +10,7 @@ const Header = ({navigation}) => {
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={styles.backContainer}>
-                <TouchableOpacity onPress={() => navigation.push('TransakcijeScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image 
                         style={styles.backLogo} 
                         source={theme.backSource}
