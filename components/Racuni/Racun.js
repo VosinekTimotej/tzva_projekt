@@ -1,38 +1,33 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, { useContext } from 'react'
 import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
 
-//TODO Delete kategorijo
-//TODO Add kategorijo
-//TODO Get kategorijo from server 
-
-const Kategorija = ({kategorija}) => {
+const Racun = ({racun}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
-            {isDarkTheme ? 
-                <Image source={{uri: kategorija.darkIcon}} style={styles.icon}/> :
-                <Image source={{uri: kategorija.icon}} style={styles.icon}/>
-            }
-            <Text style={{color: theme.textColor}}> {kategorija.name}</Text>
+            <Text style={[styles.imeRacuna,{color: theme.textColor}]}>Ime racuna: {racun.name}</Text>
+            <Text style={{color: theme.textColor}}>Stanje: {racun.stanje}</Text>
+            <Text style={{color: theme.textColor}}>ID: {racun.id}</Text>
+            <Text style={{color: theme.textColor}}>Lastnik ID:{racun.lastnik_id}</Text>
         </View>
     )
 }
 
-export default Kategorija
+export default Racun
 
 const styles = StyleSheet.create({
     container:{
         borderBottomWidth: 1,
         paddingTop: 15,
         paddingBottom: 15,
-        flexDirection: 'row',
+        paddingLeft: 10,
     },
-    icon:{
-        width: 20,
-        height:20,
+    imeRacuna:{
+        fontSize: 16,
+        fontWeight: 'bold'
     },
 })
