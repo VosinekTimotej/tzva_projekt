@@ -9,6 +9,7 @@ import TransakcijeScreen from './screens/TransakcijeScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import KategorijeScreen from './screens/KategorijeScreen'
 import RacuniScreen from './screens/RacuniScreen'
+import InfoScreen from './screens/InfoScreen'
 
 
 const Stack = createStackNavigator()
@@ -30,7 +31,7 @@ const SignedInStack = () => (
 // ko ni prijavlen uporabnik => samo login and signup page
 export const SignedOutStack = () => (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName='RacuniScreen' screenOptions={screenOptions}>
+        <Stack.Navigator initialRouteName='TransakcijeScreen' screenOptions={screenOptions}>
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
             <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
             {/* Dodano samo temp med urejanjem */}
@@ -38,6 +39,7 @@ export const SignedOutStack = () => (
             <Stack.Screen name='SettingsScreen' component={SettingsScreen} />
             <Stack.Screen name='KategorijeScreen' component={KategorijeScreen} />
             <Stack.Screen name='RacuniScreen' component={RacuniScreen} />
+            <Stack.Screen name='InfoScreen' component={InfoScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )

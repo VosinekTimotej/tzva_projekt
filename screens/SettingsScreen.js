@@ -55,7 +55,7 @@ const SettingsScreen = ({navigation}) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{ console.log('Informacije')}}>
+            <TouchableOpacity onPress={()=>{ navigation.push('InfoScreen')}}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Informacije</Text>
                 </View>
