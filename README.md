@@ -14,6 +14,7 @@
 - [x] Meje screen
 - [x] Dodaj mejo
 - [ ] Notification za  bližanje meji
+- [ ] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
 - [ ] Dodaj racun
 - [ ] Dodajanje transakcije
