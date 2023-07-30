@@ -12,7 +12,7 @@
 - [ ] Server za pridobivanje transakcij
 - [ ] Dodaj kategorijo 
 - [x] Meje screen
-- [ ] Dodaj mejo
+- [x] Dodaj mejo
 - [ ] Notification za  bližanje meji
 - [x] Racuni screen
 - [ ] Dodaj racun
