@@ -34,7 +34,7 @@ const SettingsScreen = ({navigation}) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{ console.log('Nastavi meje')}}>
+            <TouchableOpacity onPress={()=>{ navigation.push('MejeScreen')}}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Nastavljanje mej</Text>
                 </View>

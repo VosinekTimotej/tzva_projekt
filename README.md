@@ -11,7 +11,7 @@
 - [ ] Server dodat pri login/signup
 - [ ] Server za pridobivanje transakcij
 - [ ] Dodaj kategorijo 
-- [ ] Meje screen
+- [x] Meje screen
 - [ ] Dodaj mejo
 - [ ] Notification za  bližanje meji
 - [x] Racuni screen
