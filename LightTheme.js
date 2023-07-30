@@ -1,4 +1,5 @@
 const LightTheme = {
+    // basic
     backgroundColor: 'white',
     textColor: 'black',
     logoSource: require('./assets/piggy-bank.png'),
@@ -6,6 +7,11 @@ const LightTheme = {
     borderBottomColor: '#000',
     backSource: require('./assets/Back.png'),
     addSource: require('./assets/add.png'),
+    
+    // Add Meja modal
+    ButtonColor: '#4CAF50',
+    cancelButtonColor: '#B00020',
+    modalBackgroundColor: 'white',
 };
 
 export default LightTheme;

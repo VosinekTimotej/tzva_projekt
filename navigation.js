@@ -10,6 +10,7 @@ import SettingsScreen from './screens/SettingsScreen'
 import KategorijeScreen from './screens/KategorijeScreen'
 import RacuniScreen from './screens/RacuniScreen'
 import InfoScreen from './screens/InfoScreen'
+import MejeScreen from './screens/MejeScreen'
 
 
 const Stack = createStackNavigator()
@@ -40,6 +41,7 @@ export const SignedOutStack = () => (
             <Stack.Screen name='KategorijeScreen' component={KategorijeScreen} />
             <Stack.Screen name='RacuniScreen' component={RacuniScreen} />
             <Stack.Screen name='InfoScreen' component={InfoScreen} />
+            <Stack.Screen name='MejeScreen' component={MejeScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )
