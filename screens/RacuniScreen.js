@@ -16,7 +16,7 @@ const RacuniScreen = ({navigation}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const handleAddRacun = (data) => {
-        console.log('New Meja data:', data);
+        console.log('New data:', data);
         setIsVisible(false);
     };
 
@@ -25,7 +25,6 @@ const RacuniScreen = ({navigation}) => {
             <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {Racuni.map((racun,index)=>(
-                    // <Text>{racun.name}</Text>
                     <Racun racun={racun} key={index} />
                 ))}
             </ScrollView>

@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../ThemeContext';
 import DarkTheme from '../DarkTheme';
 import LightTheme from '../LightTheme';
@@ -7,6 +7,7 @@ import Header from '../components/Kategorije/Header';
 
 import { KATEGORIJE } from '../data/Kategorije';
 import Kategorija from '../components/Kategorije/Kategorija';
+import AddKategorija from '../components/Kategorije/AddKategorija';
 
 
 //TODO Footer 
@@ -15,14 +16,26 @@ const KategorijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
+    const [isVisible, setIsVisible] = useState(false);
+
+    const handleAddKategorija = (data) => {
+        console.log('New data:', data);
+        setIsVisible(false);
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <Header navigation={navigation} />
+            <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {KATEGORIJE.map((kategorija, index) => (
                     <Kategorija kategorija={kategorija} key={kategorija.id} />
                 ))}
             </ScrollView>
+            <AddKategorija 
+                isVisible={isVisible}
+                onClose={()=>setIsVisible(false)}
+                onSubmit={handleAddKategorija}
+            />
         </View>
     )
 }
