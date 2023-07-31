@@ -4,7 +4,7 @@ import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
 
-const Header = ({navigation}) => {
+const Header = ({navigation, onAddButtonPress}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
@@ -18,7 +18,7 @@ const Header = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             <Text style={[styles.text, { color: theme.textColor }]}>Racuni</Text>
-            <TouchableOpacity onPress={() => console.log('Dodaj screen')}> 
+            <TouchableOpacity onPress={onAddButtonPress}> 
                 <Image 
                     style={styles.addLogo} 
                     source={theme.addSource}
