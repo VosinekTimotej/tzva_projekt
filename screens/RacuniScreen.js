@@ -1,26 +1,38 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Header from '../components/Racuni/Header'
 import { Racuni } from '../data/Racuni'
 import ThemeContext from '../ThemeContext'
 import LightTheme from '../LightTheme'
 import DarkTheme from '../DarkTheme'
 import Racun from '../components/Racuni/Racun'
+import AddRacun from '../components/Racuni/AddRacun'
 
 
 const RacuniScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    const handleAddRacun = (data) => {
+        console.log('New data:', data);
+        setIsVisible(false);
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <Header navigation={navigation}/>
+            <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {Racuni.map((racun,index)=>(
-                    // <Text>{racun.name}</Text>
                     <Racun racun={racun} key={index} />
                 ))}
             </ScrollView>
-            <Text>RacuniScreen</Text>
+            <AddRacun 
+                isVisible={isVisible}
+                onClose={()=>setIsVisible(false)}
+                onSubmit={handleAddRacun}
+            />
         </View>
     )
 }

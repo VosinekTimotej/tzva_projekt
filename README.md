@@ -10,13 +10,14 @@
 - [ ] Uredit izgled
 - [ ] Server dodat pri login/signup
 - [ ] Server za pridobivanje transakcij
-- [ ] Dodaj kategorijo 
+- [x] Dodaj kategorijo 
+- [ ] Mozno izbire icone pri kategoriji
 - [x] Meje screen
 - [x] Dodaj mejo
 - [ ] Notification za  bližanje meji
 - [ ] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
-- [ ] Dodaj racun
+- [x] Dodaj racun
 - [ ] Dodajanje transakcije
 - [ ] Screen odhodki
 - [ ] Screen prihodki
@@ -26,6 +27,7 @@
 - [ ] Screen za spreminjane user info
 - [ ] Screen change password
 - [ ] Spreminjanje valute
+- [ ] Dvojezicnost
 
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>

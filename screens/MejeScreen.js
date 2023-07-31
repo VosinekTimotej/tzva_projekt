@@ -13,13 +13,15 @@ const MejeScreen = ({navigation}) => {
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+
     const handleAddMeja = (transactionData) => {
         console.log('New Meja data:', transactionData);
         setIsModalVisible(false);
     };
+
     return (
         <View style={[{flex: 1, backgroundColor: theme.backgroundColor}]}>
-            <Header navigation={navigation} onAddButtonPress={() => setIsModalVisible(true)}/>
+            <Header navigation={navigation} onAddButtonPress={() => setIsModalVisible(true)} />
             <ScrollView>
                 {MEJE.map((meja, index)=>(
                     <Meja meja={meja} key={index} />

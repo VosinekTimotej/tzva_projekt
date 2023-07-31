@@ -1,49 +1,37 @@
-import React, { useContext, useState } from 'react';
-import { View, Modal, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../../ThemeContext';
 import LightTheme from '../../LightTheme';
 import DarkTheme from '../../DarkTheme';
 
-const AddMejaModal = ({ isVisible, onClose, onSubmit }) => {
-
+const AddRacun = ({ isVisible, onClose, onSubmit }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
     const [name, setName] = useState('');
-    const [max, setMax] = useState('');
 
     const handleSubmit = () => {
         onSubmit({
             id: 0, 
             name: name,
-            max: parseFloat(max),
-            curr: 0
+            balance: 0
         });
         setName('');
-        setMax('');
         onClose();
     };
 
     return (
         <Modal visible={isVisible} animationType='slide' transparent>
-            <View style={styles.modalContainer}>
-                <View style={[styles.modalContent, {backgroundColor: theme.modalBackgroundColor}]}>
+            <View style={styles.container}>
+                <View style={[styles.content, {backgroundColor: theme.modalBackgroundColor}]}>
                     <View style={[styles.naslov, {backgroundColor: theme.modalBackgroundColor}]}>
-                        <Text style={[styles.naslovText, {color: theme.textColor}]}>Dodaj Mejo</Text>
+                        <Text style={[styles.naslovText, {color: theme.textColor}]}>Dodaj Racun</Text>
                     </View>
                     <TextInput
                         placeholder='Ime'
                         placeholderTextColor={theme.textColor}
                         value={name}
                         onChangeText={setName}
-                        style={[styles.input, {color: theme.textColor}]}
-                    />
-                    <TextInput
-                        placeholder='Max vsota'
-                        placeholderTextColor={theme.textColor}
-                        value={max}
-                        onChangeText={setMax}
-                        keyboardType='numeric'
                         style={[styles.input, {color: theme.textColor}]}
                     />
                     <View style={styles.buttonContainer}>
@@ -61,21 +49,22 @@ const AddMejaModal = ({ isVisible, onClose, onSubmit }) => {
                         />
                     </View>
                 </View>
+
             </View>
         </Modal>
     )
 }
 
-export default AddMejaModal
+export default AddRacun
 
 const styles = StyleSheet.create({
-    modalContainer: {
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
-    modalContent: {
+    content: {
         padding: 20,
         borderRadius: 8,
         width: '80%',

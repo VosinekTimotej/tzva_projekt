@@ -4,13 +4,13 @@ import ThemeContext from '../../ThemeContext';
 import LightTheme from '../../LightTheme';
 import DarkTheme from '../../DarkTheme';
 
-const Header = ({navigation}) => {
-    const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+const Header = ({navigation, onAddButtonPress}) => {
+    const { isDarkTheme} = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={styles.backContainer}>
-                <TouchableOpacity onPress={() => navigation.push('TransakcijeScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image 
                         style={styles.backLogo} 
                         source={theme.backSource}
@@ -18,7 +18,12 @@ const Header = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             <Text style={[styles.text, { color: theme.textColor }]}>Kategorije</Text>
-            <Text></Text>
+            <TouchableOpacity onPress={onAddButtonPress}> 
+                <Image 
+                    style={styles.addLogo} 
+                    source={theme.addSource}
+                />
+            </TouchableOpacity>
         </View>
     )
 }
@@ -47,5 +52,12 @@ const styles = StyleSheet.create({
     text:{
         fontSize: 16,
         fontWeight: 'bold'
+    },
+    addLogo:{
+        width: 30,
+        height: 40,
+        resizeMode: 'contain',
+        paddingBottom: 10,
+        // paddingRight: 50,
     },
 })
