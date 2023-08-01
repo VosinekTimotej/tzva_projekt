@@ -15,12 +15,12 @@
 - [x] Meje screen
 - [x] Dodaj mejo
 - [ ] Notification za  bližanje meji
-- [ ] Spreminjanje barve border glede na to kako blizu dosega meje smo
+- [x] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
 - [x] Dodaj racun
 - [x] Dodajanje transakcije
-- [ ] Screen odhodki
-- [ ] Screen prihodki
+- [-] Screen odhodki
+- [-] Screen prihodki
 - [ ] Stanje screen
 - [x] Podrobno o transakciji screen
 - [x] Info screen
