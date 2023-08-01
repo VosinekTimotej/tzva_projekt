@@ -4,13 +4,13 @@ import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
 
-const Header = ({navigation}) => {
+const Header = ({navigation, addPress}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <View style={styles.logoContainer}>
-                <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
+                <TouchableOpacity onPress={addPress}>
                     <Image
                             style={styles.logoImg} 
                             source={theme.logoSource}

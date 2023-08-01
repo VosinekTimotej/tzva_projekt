@@ -18,7 +18,7 @@
 - [ ] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
 - [x] Dodaj racun
-- [ ] Dodajanje transakcije
+- [x] Dodajanje transakcije
 - [ ] Screen odhodki
 - [ ] Screen prihodki
 - [ ] Stanje screen
