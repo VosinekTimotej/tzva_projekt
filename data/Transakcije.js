@@ -37,7 +37,7 @@ export const TRANSAKCIJE = [
         type: 'income',
         comment: 'simple comment',
         category: 'paycheck',
-        date: '22.2.2022',
+        date: '22.12.2022',
     },
     {
         id: 6,
@@ -45,7 +45,7 @@ export const TRANSAKCIJE = [
         type: 'income',
         comment: 'simple comment',
         category: 'paycheck',
-        date: '22.2.2022',
+        date: '22.1.2022',
     },
     {
         id: 7,
@@ -53,7 +53,7 @@ export const TRANSAKCIJE = [
         type: 'income',
         comment: 'simple comment',
         category: 'paycheck',
-        date: '22.2.2022',
+        date: '23.2.2022',
     },
     {
         id: 8,
@@ -61,7 +61,7 @@ export const TRANSAKCIJE = [
         type: 'income',
         comment: 'simple comment',
         category: 'paycheck',
-        date: '22.2.2022',
+        date: '12.2.2022',
     },
     {
         id: 9,

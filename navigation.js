@@ -11,6 +11,8 @@ import KategorijeScreen from './screens/KategorijeScreen'
 import RacuniScreen from './screens/RacuniScreen'
 import InfoScreen from './screens/InfoScreen'
 import MejeScreen from './screens/MejeScreen'
+import DohodkiScreen from './screens/DohodkiScreen'
+import OdhodkiScreen from './screens/OdhodkiScreen'
 
 
 const Stack = createStackNavigator()
@@ -36,6 +38,8 @@ export const SignedOutStack = () => (
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
             <Stack.Screen name='SignUpScreen' component={SignUpScreen} />
             {/* Dodano samo temp med urejanjem */}
+            <Stack.Screen name='OdhodkiScreen' component={OdhodkiScreen} />
+            <Stack.Screen name='DohodkiScreen' component={DohodkiScreen} />
             <Stack.Screen name='TransakcijeScreen' component={TransakcijeScreen} />
             <Stack.Screen name='SettingsScreen' component={SettingsScreen} />
             <Stack.Screen name='KategorijeScreen' component={KategorijeScreen} />

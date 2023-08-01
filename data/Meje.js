@@ -9,7 +9,7 @@ export const MEJE = [
         id: 2,
         name: 'Oblacila',
         max: 200,
-        curr: 75,
+        curr: 195,
     },
     {
         id: 3,
