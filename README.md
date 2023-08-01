@@ -18,11 +18,11 @@
 - [ ] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
 - [x] Dodaj racun
-- [ ] Dodajanje transakcije
+- [x] Dodajanje transakcije
 - [ ] Screen odhodki
 - [ ] Screen prihodki
 - [ ] Stanje screen
-- [ ] Podrobno o transakciji screen
+- [x] Podrobno o transakciji screen
 - [x] Info screen
 - [ ] Screen za spreminjane user info
 - [ ] Screen change password
