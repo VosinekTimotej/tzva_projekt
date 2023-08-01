@@ -60,6 +60,18 @@ const SettingsScreen = ({navigation}) => {
                     <Text style={[styles.text, { color: theme.textColor }]}>Informacije</Text>
                 </View>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{ navigation.push('DohodkiScreen')}}>
+                <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+                    <Text style={[styles.text, { color: theme.textColor }]}>Dohodki</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{ navigation.push('OdhodkiScreen')}}>
+                <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+                    <Text style={[styles.text, { color: theme.textColor }]}>Odhodki</Text>
+                </View>
+            </TouchableOpacity>
             </View>            
         </View>
     )
