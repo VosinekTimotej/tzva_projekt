@@ -4,6 +4,7 @@ import HomeScreen from './screens/HomeScreen';
 import SignedInStack, { SignedOutStack } from './navigation';
 import ThemeContext, { ThemeProvider } from './ThemeContext';
 import { useContext } from 'react';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   // const { isDarkTheme } = useContext(ThemeContext);
@@ -23,6 +24,7 @@ export default function App() {
         <SignedOutStack />
       </View> */}
       <SignedOutStack />
+      <Toast />
     </ThemeProvider>
     
   );

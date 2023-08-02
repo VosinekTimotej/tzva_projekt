@@ -16,7 +16,7 @@ const SettingsScreen = ({navigation}) => {
         <View style={[{flex: 1, backgroundColor: theme.backgroundColor}]}>
             <Header navigation={navigation} />
             <View style={[{ backgroundColor: theme.backgroundColor }]}>
-            <TouchableOpacity onPress={()=>{ console.log('Spremeni osebne podatke')}} style={[{ backgroundColor: theme.backgroundColor }]}>
+            <TouchableOpacity onPress={()=>{ navigation.push('UserInfoScreen')}} style={[{ backgroundColor: theme.backgroundColor }]}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Uporabnikovi podatki</Text>
                 </View>

@@ -19,12 +19,12 @@
 - [x] Racuni screen
 - [x] Dodaj racun
 - [x] Dodajanje transakcije
-- [-] Screen odhodki
-- [-] Screen prihodki
+- [x] Screen odhodki
+- [x] Screen prihodki
 - [ ] Stanje screen
 - [x] Podrobno o transakciji screen
 - [x] Info screen
-- [ ] Screen za spreminjane user info
+- [x] Screen za spreminjane user info
 - [ ] Screen change password
 - [ ] Spreminjanje valute
 - [ ] Dvojezicnost
