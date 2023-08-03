@@ -17,7 +17,7 @@ const Header = ({navigation}) => {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={[styles.text, { color: theme.textColor }]}>Informacije</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>Odhodki</Text>
             <View></View>
         </View>
     )

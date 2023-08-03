@@ -4,9 +4,11 @@ import HomeScreen from './screens/HomeScreen';
 import SignedInStack, { SignedOutStack } from './navigation';
 import ThemeContext, { ThemeProvider } from './ThemeContext';
 import { useContext } from 'react';
+import Footer from './components/Footer/Footer';
 
 export default function App() {
   // const { isDarkTheme } = useContext(ThemeContext);
+  console.log()
   return (
     // <HomeScreen/>
     // <SignedInStack />
@@ -16,6 +18,7 @@ export default function App() {
     //   </ThemeProvider>
     // </SafeAreaView>
     <ThemeProvider>
+      <View style={styles.contain}>
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
       </View>
@@ -23,6 +26,11 @@ export default function App() {
         <SignedOutStack />
       </View> */}
       <SignedOutStack />
+      {/*<View style={styles.footer}>
+        
+        <Footer/>
+      </View>*/}
+      </View>
     </ThemeProvider>
     
   );
@@ -31,5 +39,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container:{
       paddingTop: 40
+  },
+  contain:{
+    flex: 1,
+  },
+  footer:{
+    backgroundColor: "blue",
+    padding: 0,
   },
 })
