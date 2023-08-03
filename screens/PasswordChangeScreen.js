@@ -4,62 +4,77 @@ import ThemeContext from '../ThemeContext';
 import LightTheme from '../LightTheme';
 import DarkTheme from '../DarkTheme';
 import Header from '../components/PasswordChange/Header';
-var bcrypt = require('bcryptjs');
 
-import { getRandomBytes } from 'react-native-get-random-values';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-bcrypt.setRandomFallback(getRandomBytes);
-
-const saltRounds = 5;
-
-var salt = bcrypt.genSaltSync(saltRounds);
+// import bcrypt from 'bcryptjs';
 
 const PasswordChangeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
-    
-    const [password, setPassword] = useState('');
 
-    const handleSubmit = async () => {
+    const schema = Yup.object().shape({
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Password must be at least 8 characters long')
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/,
+                'Password must have at least one lowercase, one uppercase, one number, and one special character'
+            )
+    });
 
-        if(password.trim() !== ''){
-            try {
-                var hash = bcrypt.hashSync(password.trim(), salt);
-                data = {
-                    password: hash,
-                    salt: salt
-                }
-                Alert.alert('Success', 'Password has been updated!');
-                console.log(data);
+    const handleSubmit = async (values) => {
+        console.log('password:', values.password);
 
-            } catch (error) {
-                console.log(error)
-                Alert.alert('Error', 'There was an error!');
-            }
-        }
+        // try {
+        //     const salt = await bcrypt.genSalt(10);
+        
+        //     const hashedPassword = await bcrypt.hash(values.password, salt);
+        //     console.log('password:', hashedPassword);
+        //     console.log('salt: ', salt)
+        // } catch (error) {
+        //     console.error('Error hashing password:', error);
+        // }
+        
     };
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
-            <Header navigation={navigation} theme={theme} />
-            <View style={[styles.content, {backgroundColor: theme.backgroundColor}]}>
-                <TextInput
-                    placeholder='Password'
-                    placeholderTextColor={theme.textColor}
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={true}
-                    style={[styles.input, {color: theme.textColor}]}
-                />
-            </View>
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title='Add' 
-                        onPress={handleSubmit} 
-                        color={theme.ButtonColor}
-                    />
-                </View>
-        </View>
+        <Formik
+            initialValues={{password:''}}
+            onSubmit={(values) => {handleSubmit(values)}}
+            validationSchema={schema}
+            validateOnMount={true}
+        >
+            {({ handleChange, handleBlur, handleSubmit, values, errors, isValid}) => (
+                <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+                    <Header navigation={navigation} theme={theme} />
+                    <View style={[styles.content, {backgroundColor: theme.backgroundColor}]}>
+                        {errors.password && (
+                            <Text style={styles.errorText}>{errors.password}</Text>
+                        )}
+                            <TextInput
+                                placeholder='Password'
+                                textContentType='password'
+                                placeholderTextColor={theme.textColor}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                                secureTextEntry={true}
+                                style={[styles.input, {color: theme.textColor}]}
+                            />
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                title='Add' 
+                                onPress={handleSubmit} 
+                                color={theme.ButtonColor}
+                                disabled={!isValid}
+                            />
+                        </View>
+                    </View>
+                </View>       
+            )}
+        </Formik>
     )
 }
 
