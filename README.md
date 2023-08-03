@@ -25,7 +25,8 @@
 - [x] Podrobno o transakciji screen
 - [x] Info screen
 - [x] Screen za spreminjane user info
-- [ ] Screen change password
+- [x] Screen change password
+- [ ] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
 - [ ] Dvojezicnost
 
