@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../models/Models');
+const { User, Account, Transaction } = require('../models/Models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -124,6 +124,32 @@ router.put('/password', verifyToken, async (req, res) => {
         await user.save();
 
         res.json({ msg: 'Users password updated', user });
+    }
+    catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// add acc to user
+router.put('/acc', verifyToken, async (req, res) => {
+    try{
+        const userId = req.userId;
+        
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // create new acc
+        const account = new Account({ balance: 0, name: req.body.name, user_id: userId});
+        await account.save();
+
+        // add acc to users array
+        user.accounts.push(account._id);
+        await user.save();
+
+        res.json({ msg: 'Acc added to user', user });
     }
     catch (error) {
         console.error('Error :', error);
