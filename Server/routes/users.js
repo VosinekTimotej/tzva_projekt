@@ -4,6 +4,7 @@ const { User } = require('../models/Models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+// verify if token is valid
 const verifyToken = (req, res, next) => {
     const token = req.header('Authorization');
 
@@ -51,6 +52,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+// login user
 router.route('/login').post(async (req,res)=>{
     try{
         const username = req.body.username;
@@ -81,6 +83,7 @@ router.route('/login').post(async (req,res)=>{
     }
 })
 
+// update user info
 router.put('/update', verifyToken, async (req, res) => {
     try {
         const { name, surname, birth_day } = req.body;
@@ -88,7 +91,7 @@ router.put('/update', verifyToken, async (req, res) => {
 
         const user = await User.findById(userId);
         if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'User not found' });
         }
 
         if (name) {user.name = name;}
@@ -100,6 +103,29 @@ router.put('/update', verifyToken, async (req, res) => {
         res.json({ msg: 'User data updated', user });
 
     } catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// update password
+router.put('/password', verifyToken, async (req, res) => {
+    try{
+        const newPassword = req.body.password;
+        const userId = req.userId;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (newPassword) {user.password = newPassword;}
+
+        await user.save();
+
+        res.json({ msg: 'Users password updated', user });
+    }
+    catch (error) {
         console.error('Error :', error);
         res.status(500).json({ error: 'Internal server error' });
     }
