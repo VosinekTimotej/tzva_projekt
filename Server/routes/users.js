@@ -149,7 +149,27 @@ router.put('/acc', verifyToken, async (req, res) => {
         user.accounts.push(account._id);
         await user.save();
 
-        res.json({ msg: 'Acc added to user', user });
+        res.json({ msg: 'Acc added to user', account });
+    }
+    catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// get all acc data for user
+router.get('/acc', verifyToken, async (req, res) => {
+    try{
+        const userId = req.userId;
+        
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const accounts = await Account.find({ user_id: userId });
+
+        res.json({ accounts });
     }
     catch (error) {
         console.error('Error :', error);

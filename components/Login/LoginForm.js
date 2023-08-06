@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const LoginForm = ({navigation}) => {
-
+    // kaksne podatke zahtevamo
     const LoginSchema = Yup.object().shape({
         username: Yup.string()
             .required('Username is required')
@@ -23,6 +23,7 @@ const LoginForm = ({navigation}) => {
             )
     })
 
+    // pridobi podatke in vpise uporabnika
     const handleLogin = async (values) => {
         try {
             const response = await axios.post(apiURL+'/users/login', values);

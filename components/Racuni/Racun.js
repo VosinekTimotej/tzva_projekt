@@ -10,9 +10,9 @@ const Racun = ({racun}) => {
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
             <Text style={[styles.imeRacuna,{color: theme.textColor}]}>Ime racuna: {racun.name}</Text>
-            <Text style={{color: theme.textColor}}>Stanje: {racun.stanje}</Text>
-            <Text style={{color: theme.textColor}}>ID: {racun.id}</Text>
-            <Text style={{color: theme.textColor}}>Lastnik ID:{racun.lastnik_id}</Text>
+            <Text style={{color: theme.textColor}}>Stanje: {racun.balance}</Text>
+            <Text style={{color: theme.textColor}}>ID: {racun._id}</Text>
+            <Text style={{color: theme.textColor}}>Lastnik ID:{racun.user_id}</Text>
         </View>
     )
 }

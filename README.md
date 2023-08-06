@@ -9,6 +9,7 @@
 - [ ] Main footer za navigacijo
 - [ ] Uredit izgled
 - [x] Server dodat pri login/signup
+- [ ] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
 - [ ] Server za pridobivanje transakcij
 - [x] Dodaj kategorijo 
 - [ ] Mozno izbire icone pri kategoriji

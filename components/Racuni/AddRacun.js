@@ -13,9 +13,7 @@ const AddRacun = ({ isVisible, onClose, onSubmit }) => {
 
     const handleSubmit = () => {
         onSubmit({
-            // id: 0, 
             name: name,
-            // balance: 0
         });
         setName('');
         onClose();

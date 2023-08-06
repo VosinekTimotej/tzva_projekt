@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const SignUpForm = ({navigation}) => {
-
+    // kaksni podatki se pricakujejo pri vnosu
     const Schema = Yup.object().shape({
         email: Yup.string()
             .required('Email is required')
@@ -27,15 +27,9 @@ const SignUpForm = ({navigation}) => {
             )
     })
 
+    // posljemo podatke o uporabniku na streznik in ustvarimo nov user
     const handleSignup = async (values) => {
         try{
-            data={
-                name: 'test',
-                surname: 'test',
-                username: values.username,
-                password: values.password,
-                birth_day: '02.02.2020'
-            }
             const response = await axios.post(apiURL+'/users', values);
             console.log('User signup successful:', response.data);
             const token = response.data.token;
@@ -44,7 +38,6 @@ const SignUpForm = ({navigation}) => {
         }catch(err){
             console.log('Error: ', err)
         }
-        // console.log('email, username and password:', values.email, values.username, values.password);
     };
 
     return (
