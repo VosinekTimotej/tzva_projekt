@@ -4,6 +4,7 @@ import ThemeContext from '../../ThemeContext';
 import LightTheme from '../../LightTheme';
 import DarkTheme from '../../DarkTheme';
 
+
 const AddRacun = ({ isVisible, onClose, onSubmit }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
@@ -12,9 +13,9 @@ const AddRacun = ({ isVisible, onClose, onSubmit }) => {
 
     const handleSubmit = () => {
         onSubmit({
-            id: 0, 
+            // id: 0, 
             name: name,
-            balance: 0
+            // balance: 0
         });
         setName('');
         onClose();

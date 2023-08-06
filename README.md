@@ -8,7 +8,7 @@
 ## TODO
 - [ ] Main footer za navigacijo
 - [ ] Uredit izgled
-- [ ] Server dodat pri login/signup
+- [x] Server dodat pri login/signup
 - [ ] Server za pridobivanje transakcij
 - [x] Dodaj kategorijo 
 - [ ] Mozno izbire icone pri kategoriji
