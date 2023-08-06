@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    surname: { type: String, required: true },
+    name: { type: String },
+    surname: { type: String},
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
-    birth_day: { type: Date, required: true }
+    birth_day: { type: Date }
 });
 
 const accountSchema = new mongoose.Schema({

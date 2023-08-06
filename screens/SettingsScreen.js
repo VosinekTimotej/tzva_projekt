@@ -4,6 +4,8 @@ import ThemeContext from '../ThemeContext';
 import Header from '../components/Settings/Header';
 import LightTheme from '../LightTheme';
 import DarkTheme from '../DarkTheme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 //TODO Footer 
 
@@ -11,6 +13,16 @@ const SettingsScreen = ({navigation}) => {
 
     const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('userToken');
+        
+            navigation.navigate('LoginScreen');
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
 
     return (
         <View style={[{flex: 1, backgroundColor: theme.backgroundColor}]}>
@@ -70,6 +82,12 @@ const SettingsScreen = ({navigation}) => {
             <TouchableOpacity onPress={()=>{ navigation.push('OdhodkiScreen')}}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                     <Text style={[styles.text, { color: theme.textColor }]}>Odhodki</Text>
+                </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleLogout}>
+                <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+                    <Text style={[styles.text, { color: theme.textColor }]}>Odjava</Text>
                 </View>
             </TouchableOpacity>
             </View>            

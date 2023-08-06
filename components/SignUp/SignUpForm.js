@@ -2,6 +2,10 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const SignUpForm = ({navigation}) => {
 
@@ -23,8 +27,24 @@ const SignUpForm = ({navigation}) => {
             )
     })
 
-    const handleSignup = (values) => {
-        console.log('email, username and password:', values.email, values.username, values.password);
+    const handleSignup = async (values) => {
+        try{
+            data={
+                name: 'test',
+                surname: 'test',
+                username: values.username,
+                password: values.password,
+                birth_day: '02.02.2020'
+            }
+            const response = await axios.post(apiURL+'/users', values);
+            console.log('User signup successful:', response.data);
+            const token = response.data.token;
+            await AsyncStorage.setItem('userToken', token);
+            navigation.push('TransakcijeScreen');
+        }catch(err){
+            console.log('Error: ', err)
+        }
+        // console.log('email, username and password:', values.email, values.username, values.password);
     };
 
     return (

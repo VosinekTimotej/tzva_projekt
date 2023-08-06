@@ -30,6 +30,10 @@
 - [ ] Spreminjanje valute
 - [ ] Dvojezicnost
 
+## Server nastavitve
+- V CMD ipconfig da dobis svoj IPv4 naslov
+- Spremenis apiUrl da je na IPv4 od tvojega racunalnika
+
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>
 - <img src="/assets/piggy-bank.png" alt="Piggy bank icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/money" title="money icons">Money icons created by Freepik - Flaticon</a>
