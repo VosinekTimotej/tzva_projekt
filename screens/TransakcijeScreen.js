@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
 import Transakcija from '../components/Transakcije/Transakcija'
@@ -9,7 +9,10 @@ import LightTheme from '../LightTheme'
 import PodrobnoTransakcija from '../components/Transakcije/PodrobnoTransakcija'
 import AddTransakcijo from '../components/Transakcije/AddTransakcijo'
 
-//TODO Footer 
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok 
 
 const TransakcijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
@@ -22,6 +25,63 @@ const TransakcijeScreen = ({navigation}) => {
     // add modal
     const [isAddVisiable, setIsAddVisiable] = useState(false);
 
+    const [transakcije, setTransakcije] = useState([]);
+
+    // se pozene ko se nalozi screen
+    useEffect(() => {
+        const fetchTransakcije = async () => {
+            try {
+                getTransakcije()
+            } catch (error) {
+                console.error('Error fetching transakcije:', error);
+            }
+        };
+
+        fetchTransakcije();
+    }, []);
+
+    const getTransakcije = async () =>{
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const acc = await AsyncStorage.getItem('activeAcc');
+            const headers = {
+                Authorization: `${token}`, 
+                Account: `${acc}`
+            };
+
+            const response = await axios.get(`${apiURL}/transactions`, { headers });
+            setTransakcije(response.data.transakcije)
+        } catch (error) {
+            console.log('Error: ', error)
+        }
+    }
+
+    const createTransakcijo = async (data) => {
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const acc = await AsyncStorage.getItem('activeAcc');
+            const headers = {
+                Authorization: `${token}`
+            };
+            const body = {
+                acc_id: acc,
+                comment: data.comment,
+                value: data.value,
+                type: data.type,
+                category: data.category,
+                date: data.date
+            }
+
+            const response = await axios.post(`${apiURL}/transactions`, body, { headers });
+            console.log(response.data.transakcija)
+
+            const newTransakcija = response.data.transakcija;
+            setTransakcije([...transakcije, newTransakcija])
+        } catch (error) {
+            console.log('Error: ', error)
+        }
+    }
+
     const handlePress = (transakcija) => {
         console.log(transakcija)
         setSelected(transakcija);
@@ -29,7 +89,7 @@ const TransakcijeScreen = ({navigation}) => {
     };
 
     const handleAdd = (data) => {
-        console.log(data)
+        createTransakcijo(data)
         setIsAddVisiable(true);
     };
     
@@ -38,8 +98,8 @@ const TransakcijeScreen = ({navigation}) => {
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
             <Header navigation={navigation} addPress={()=> setIsAddVisiable(true)}/>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {TRANSAKCIJE.map((transakcija, index) => (
-                    <Transakcija transakcija={transakcija} key={transakcija.id} handlePress={handlePress} />
+                {transakcije.map((transakcija) => (
+                    <Transakcija transakcija={transakcija} key={transakcija._id} handlePress={handlePress} />
                 ))}
             </ScrollView>
 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./routes/users');
+const transakcijeRoute = require('./routes/transakcije');
 
 require('dotenv').config();
 const app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/users', userRoutes);
+app.use('/transactions', transakcijeRoute)
 
 const port = process.env.PORT || 5000;
 const atlas_geslo = process.env.ATLAS_GESLO

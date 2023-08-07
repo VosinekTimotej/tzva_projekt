@@ -21,7 +21,6 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
     const handleSubmit = () => {
         const currentDate = getCurrentDate();
         onSubmit({
-            id: 0, // treba spremenit 
             date: currentDate,
             value: parseFloat(value),
             type: type,
@@ -37,8 +36,8 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
     };
 
     const typeData=[
-        {key:'1', value:'Income'},
-        {key:'2', value:'Cost'}
+        {key:'1', value:'income'},
+        {key:'2', value:'cost'}
     ]
 
     return (

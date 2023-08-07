@@ -22,7 +22,8 @@ const transactionSchema = new mongoose.Schema({
     comment: { type: String },
     value: { type: Number, required: true },
     type: { type: String, enum: ['income', 'cost'], required: true },
-    category: { type: String }
+    category: { type: String },
+    date: {type: Date}
 });
 
 const User = mongoose.model('User', userSchema);

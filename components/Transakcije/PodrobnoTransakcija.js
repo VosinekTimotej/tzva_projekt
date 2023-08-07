@@ -29,7 +29,7 @@ const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
                         >Transakcija ID: {transakcija.id}</Text>
                     </View> 
                         <Text style={{color: theme.textColor}}>Date: {transakcija.date}</Text>
-                        <Text style={{color: theme.textColor}}>Id: {transakcija.id}</Text>
+                        <Text style={{color: theme.textColor}}>Id: {transakcija._id}</Text>
                         <Text style={{color: theme.textColor}}>Value: 
                             {transakcija.type=='cost' ? 
                                 (<Text> -</Text>):
