@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     surname: { type: String},
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    active_account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account'},
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
     birth_day: { type: Date }
 });

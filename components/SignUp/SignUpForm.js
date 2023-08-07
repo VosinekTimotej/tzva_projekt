@@ -34,6 +34,9 @@ const SignUpForm = ({navigation}) => {
             console.log('User signup successful:', response.data);
             const token = response.data.token;
             await AsyncStorage.setItem('userToken', token);
+            const acc = response.data.acc
+            console.log("acc: ", acc)
+            await AsyncStorage.setItem('activeAcc', acc);
             navigation.push('TransakcijeScreen');
         }catch(err){
             console.log('Error: ', err)

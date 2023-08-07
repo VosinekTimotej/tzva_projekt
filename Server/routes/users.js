@@ -44,8 +44,18 @@ router.post('/', async (req, res) => {
             password,
             birth_day,
         });
+
+        // create new acc
+        const account = new Account({ balance: 0, name: req.body.name, user_id: newUser._id});
+        await account.save();
+
+        // add acc to users array
+        newUser.accounts.push(account._id);
+        newUser.active_account = account._id;
+        await newUser.save();
+
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET);
-        res.status(201).json({ user: newUser, token});
+        res.status(201).json({ user: newUser, token, acc: newUser.active_account});
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -76,7 +86,7 @@ router.route('/login').post(async (req,res)=>{
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-        res.status(201).json({ msg: "Logged in", token});
+        res.status(201).json({ msg: "Logged in", token, acc: user.active_account});
     } catch (error) {
         console.error('Error creating user:', error);
         res.status(500).json({ error: 'Internal server error' });

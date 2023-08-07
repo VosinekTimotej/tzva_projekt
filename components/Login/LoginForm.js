@@ -30,6 +30,9 @@ const LoginForm = ({navigation}) => {
             console.log('User login successful:', response.data);
             const token = response.data.token;
             await AsyncStorage.setItem('userToken', token);
+            const acc = response.data.acc
+            console.log("acc: ", acc)
+            await AsyncStorage.setItem('activeAcc', acc);
             navigation.push('TransakcijeScreen');
         } catch (error) {
             console.log("Error: ", error)

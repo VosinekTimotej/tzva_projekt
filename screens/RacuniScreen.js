@@ -40,10 +40,10 @@ const RacuniScreen = ({navigation}) => {
                 Authorization: `${token}` 
             };
             const response = await axios.get(`${apiURL}/users/acc`, { headers });
-            console.log(response.data);
+            // console.log(response.data);
             const accs = response.data.accounts
             setAcc(accs)
-            console.log(acc[0])
+            // console.log("acc 0 ", accs[0])
         } catch (error) {
             console.log('Error: ', error)
         }
