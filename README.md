@@ -6,36 +6,36 @@
 - Skeniraj qr kodo
 
 ## TODO
-- [ ] Main footer za navigacijo
-- [ ] Uredit izgled
 - [x] Server dodat pri login/signup
 - [x] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
 - [x] Server za pridobivanje transakcij
 - [x] Dodaj kategorijo 
 - [x] Meje screen
 - [x] Dodaj mejo
-- [ ] Notification za  bližanje meji
 - [x] Spreminjanje barve border glede na to kako blizu dosega meje smo
 - [x] Racuni screen
 - [x] Dodaj racun
 - [x] Dodajanje transakcije
 - [x] Screen odhodki
 - [x] Screen prihodki
-- [ ] Stanje screen
 - [x] Podrobno o transakciji screen
 - [x] Info screen
 - [x] Screen za spreminjane user info
 - [x] Screen change password
-- [ ] hashing passwords spremeni geslo, login, signup 
-- [ ] Spreminjanje valute
 - [x] Server User info
 - [x] Server password
-- [ ] Server meje
 - [x] Lepsi date prikaz
 - [x] Delete racun
 - [x] Napisi ko ni transakcij
 - [x] Login show msg if wrong password ali no user
 - [x] Dodaj alert error ce gre kaj narobe
+- [ ] Main footer za navigacijo
+- [ ] Uredit izgled
+- [ ] Notification za  bližanje meji
+- [ ] Stanje screen
+- [ ] hashing passwords spremeni geslo, login, signup 
+- [ ] Spreminjanje valute
+- [ ] Server meje
 
 ## TODO EXTRA
 - [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
