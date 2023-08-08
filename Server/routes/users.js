@@ -187,4 +187,24 @@ router.get('/acc', verifyToken, async (req, res) => {
     }
 });
 
+// delete acc 
+router.delete('/acc', verifyToken, async (req, res)=>{
+    try {
+        const userId = req.userId;
+        const accId = req.query.accId;
+        const account = await Account.findOne({ _id: accId, user_id: userId });
+
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
+        await Account.deleteOne({ _id: accId });
+
+        res.json({ msg: 'Account deleted successfully' });
+    } catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 module.exports = router;

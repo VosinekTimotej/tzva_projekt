@@ -51,6 +51,7 @@ const UserInfoScreen = ({navigation}) => {
             Alert.alert('Success', 'User data has been updated!');
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with updating users info!');
         }
     };
 

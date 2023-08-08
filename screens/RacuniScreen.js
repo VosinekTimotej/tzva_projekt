@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, Alert } from 'react-native'
 import React, { useEffect, useContext, useState } from 'react'
 import Header from '../components/Racuni/Header'
 import ThemeContext from '../ThemeContext'
@@ -25,10 +25,7 @@ const RacuniScreen = ({navigation}) => {
         const fetchAccounts = async () => {
             try {
                 getAcc();
-                // const activeAccount = await AsyncStorage.getItem('activeAcc');
-                
                 setActiveAccount(await AsyncStorage.getItem('activeAcc'))
-                // console.log('active', activeAccount)
             } catch (error) {
                 console.error('Error fetching accounts:', error);
             }
@@ -51,6 +48,7 @@ const RacuniScreen = ({navigation}) => {
             // console.log("acc 0 ", accs[0])
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with getting accounts!');
         }
         
     }
@@ -73,6 +71,7 @@ const RacuniScreen = ({navigation}) => {
             setIsVisible(false);
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with creating new account!');
         }
     };
 
@@ -80,12 +79,36 @@ const RacuniScreen = ({navigation}) => {
         setActiveAccount(account);
     };
 
+    const handleAccountDelete = async (accountId) =>{
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+
+            const response = await axios.delete(`${apiURL}/users/acc?accId=${accountId}`, { headers });
+            console.log(response.data)
+
+            // posodobimo katere racune imamo
+            const updatedAccounts = acc.filter(account => account._id !== accountId);
+            setAcc(updatedAccounts)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with deleting account!');
+        }
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {acc.map((racun) =>(
-                    <Racun racun={racun} key={racun._id} activeAccount={activeAccount} onAccountPress={handleAccountPress}/>
+                    <Racun 
+                        racun={racun} 
+                        key={racun._id} 
+                        activeAccount={activeAccount} 
+                        onAccountPress={handleAccountPress}
+                        onDeletePress={handleAccountDelete} />
                 ))}
             </ScrollView>
             <AddRacun 

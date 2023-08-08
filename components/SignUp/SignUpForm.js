@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -40,6 +40,7 @@ const SignUpForm = ({navigation}) => {
             navigation.push('TransakcijeScreen');
         }catch(err){
             console.log('Error: ', err)
+            Alert.alert('Error', 'Something went wrong with creating new account!');
         }
     };
 

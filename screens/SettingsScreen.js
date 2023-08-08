@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Switch, TouchableOpacity  } from 'react-native'
+import { StyleSheet, Text, View, Switch, TouchableOpacity, Alert  } from 'react-native'
 import React, { useContext } from 'react';
 import ThemeContext from '../ThemeContext';
 import Header from '../components/Settings/Header';
@@ -21,6 +21,7 @@ const SettingsScreen = ({navigation}) => {
             navigation.navigate('LoginScreen');
         } catch (error) {
             console.error('Error during logout:', error);
+            Alert.alert('Error', 'Something went wrong with logging out!');
         }
     };
 

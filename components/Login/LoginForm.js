@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -27,11 +27,9 @@ const LoginForm = ({navigation}) => {
     const handleLogin = async (values) => {
         try {
             const response = await axios.post(apiURL+'/users/login', values);
-            // console.log('User login successful:', response.data);
             const token = response.data.token;
             await AsyncStorage.setItem('userToken', token);
             const acc = response.data.acc
-            // console.log("acc: ", acc)
             const storedActiveAcc = await AsyncStorage.getItem('activeAcc');
             console.log('storedActiveAcc', storedActiveAcc)
             if (!storedActiveAcc) {
@@ -40,6 +38,11 @@ const LoginForm = ({navigation}) => {
             navigation.push('TransakcijeScreen');
         } catch (error) {
             console.log("Error: ", error)
+            if (error.response && error.response.status === 401) {
+                Alert.alert('Error', 'Wrong username or password.');
+            } else {
+                Alert.alert('Error', 'Something went wrong with login.');
+            }
         }
     };
 

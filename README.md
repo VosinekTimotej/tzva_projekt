@@ -32,9 +32,10 @@
 - [x] Server password
 - [ ] Server meje
 - [x] Lepsi date prikaz
-- [ ] Delete racun
+- [x] Delete racun
 - [x] Napisi ko ni transakcij
-- [ ] Login show msg if wrong password ali no user
+- [x] Login show msg if wrong password ali no user
+- [x] Dodaj alert error ce gre kaj narobe
 
 ## TODO EXTRA
 - [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
@@ -51,6 +52,7 @@
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>
 - <img src="/assets/piggy-bank.png" alt="Piggy bank icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/money" title="money icons">Money icons created by Freepik - Flaticon</a>
 - <img src="/assets/setting.png" alt="Settings icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a>
+- <img src="/assets/delete.png" alt="Settings icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icon/delete_1214428?term=delete&page=1&position=1&origin=search&related_id=1214428" title="delete icons">Link delete icon</a> 
 
 
 

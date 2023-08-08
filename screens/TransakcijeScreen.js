@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native'
 import React, { useEffect, useContext, useState } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
@@ -53,6 +53,7 @@ const TransakcijeScreen = ({navigation}) => {
             setTransakcije(response.data.transakcije)
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with getting transactions data!');
         }
     }
 
@@ -79,6 +80,7 @@ const TransakcijeScreen = ({navigation}) => {
             setTransakcije([...transakcije, newTransakcija])
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with adding new transaction!');
         }
     }
 

@@ -44,6 +44,7 @@ const PasswordChangeScreen = ({navigation}) => {
             resetForm();
         } catch (error) {
             console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with creating new password!');
         }
         
     };
