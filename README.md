@@ -28,8 +28,8 @@
 - [x] Screen change password
 - [ ] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
-- [ ] Server User info
-- [ ] Server password
+- [x] Server User info
+- [x] Server password
 - [ ] Server meje
 - [x] Lepsi date prikaz
 - [ ] Delete racun
@@ -41,6 +41,7 @@
 - [ ] Mozno izbire icone pri kategoriji
 - [ ] Dvojezicnost
 - [ ] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
+- [ ] Pri spreminjanju password mora vpisat old password
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov

@@ -8,6 +8,11 @@ import Header from '../components/PasswordChange/Header';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok 
+
 // import bcrypt from 'bcryptjs';
 
 const PasswordChangeScreen = ({navigation}) => {
@@ -24,25 +29,29 @@ const PasswordChangeScreen = ({navigation}) => {
             )
     });
 
-    const handleSubmit = async (values) => {
-        console.log('password:', values.password);
-
-        // try {
-        //     const salt = await bcrypt.genSalt(10);
-        
-        //     const hashedPassword = await bcrypt.hash(values.password, salt);
-        //     console.log('password:', hashedPassword);
-        //     console.log('salt: ', salt)
-        // } catch (error) {
-        //     console.error('Error hashing password:', error);
-        // }
+    const handleSubmit = async (values, { resetForm }) => {
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}`
+            };
+            data={
+                password: values.password
+            }
+            const response = await axios.put(`${apiURL}/users/password`, data, { headers });
+            // console.log(response.data);
+            Alert.alert('Success', 'Password has been updated!');
+            resetForm();
+        } catch (error) {
+            console.log('Error: ', error)
+        }
         
     };
 
     return (
         <Formik
             initialValues={{password:''}}
-            onSubmit={(values) => {handleSubmit(values)}}
+            onSubmit={(values, actions) => { handleSubmit(values, actions) }}
             validationSchema={schema}
             validateOnMount={true}
         >
@@ -53,16 +62,16 @@ const PasswordChangeScreen = ({navigation}) => {
                         {errors.password && (
                             <Text style={styles.errorText}>{errors.password}</Text>
                         )}
-                            <TextInput
-                                placeholder='Password'
-                                textContentType='password'
-                                placeholderTextColor={theme.textColor}
-                                onChangeText={handleChange('password')}
-                                onBlur={handleBlur('password')}
-                                value={values.password}
-                                secureTextEntry={true}
-                                style={[styles.input, {color: theme.textColor}]}
-                            />
+                        <TextInput
+                            placeholder='Password'
+                            textContentType='password'
+                            placeholderTextColor={theme.textColor}
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            value={values.password}
+                            secureTextEntry={true}
+                            style={[styles.input, {color: theme.textColor}]}
+                        />
                         <View style={styles.buttonContainer}>
                             <Button
                                 title='Add' 
