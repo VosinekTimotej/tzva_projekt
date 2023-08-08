@@ -79,7 +79,7 @@ router.post('/', verifyToken, async (req, res) =>{
         else{
             newStanje = parseFloat(racun.balance) - parseFloat(value)
         }
-        console.log('novo stanje', newStanje)
+        // console.log('novo stanje', newStanje)
         if(transakcija){
             data = {
                 balance: newStanje

@@ -73,7 +73,7 @@ const TransakcijeScreen = ({navigation}) => {
             }
 
             const response = await axios.post(`${apiURL}/transactions`, body, { headers });
-            console.log(response.data.transakcija)
+            // console.log(response.data.transakcija)
 
             const newTransakcija = response.data.transakcija;
             setTransakcije([...transakcije, newTransakcija])
@@ -98,9 +98,13 @@ const TransakcijeScreen = ({navigation}) => {
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
             <Header navigation={navigation} addPress={()=> setIsAddVisiable(true)}/>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {transakcije.map((transakcija) => (
-                    <Transakcija transakcija={transakcija} key={transakcija._id} handlePress={handlePress} />
-                ))}
+                {transakcije.length === 0 ? (
+                    <Text style={[styles.noTransactionsText, {color: theme.textColor} ]}>Ni transakcij</Text>
+                ) : (
+                    transakcije.map((transakcija) => (
+                        <Transakcija transakcija={transakcija} key={transakcija._id} handlePress={handlePress} />
+                    ))
+                )}
             </ScrollView>
 
             {selected? (
@@ -134,5 +138,10 @@ const styles = StyleSheet.create({
     },
     scrollViewContent: {
         flexGrow: 1,
+    },
+    noTransactionsText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginTop: 20, 
     },
 })

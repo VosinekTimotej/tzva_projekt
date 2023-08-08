@@ -12,7 +12,6 @@
 - [x] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
 - [x] Server za pridobivanje transakcij
 - [x] Dodaj kategorijo 
-- [ ] Mozno izbire icone pri kategoriji
 - [x] Meje screen
 - [x] Dodaj mejo
 - [ ] Notification za  bližanje meji
@@ -29,11 +28,17 @@
 - [x] Screen change password
 - [ ] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
-- [ ] Dvojezicnost
 - [ ] Server User info
 - [ ] Server password
 - [ ] Server meje
 - [x] Lepsi date prikaz
+- [ ] Delete racun
+- [x] Napisi ko ni transakcij
+
+## TODO EXTRA
+- [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
+- [ ] Mozno izbire icone pri kategoriji
+- [ ] Dvojezicnost
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov

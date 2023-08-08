@@ -28,7 +28,7 @@ const RacuniScreen = ({navigation}) => {
                 // const activeAccount = await AsyncStorage.getItem('activeAcc');
                 
                 setActiveAccount(await AsyncStorage.getItem('activeAcc'))
-                console.log('active', activeAccount)
+                // console.log('active', activeAccount)
             } catch (error) {
                 console.error('Error fetching accounts:', error);
             }
@@ -58,15 +58,17 @@ const RacuniScreen = ({navigation}) => {
     // doda nov racun in poslje na streznik
     const handleAddRacun = async (data) => {
         try {
-            console.log('New data:', data);
+            // console.log('New data:', data);
             const token = await AsyncStorage.getItem('userToken');
-            console.log('Token:', token);
+            // console.log('Token:', token);
             const headers = {
                 Authorization: `${token}` 
             };
             const response = await axios.put(`${apiURL}/users/acc`, data, { headers });
-            console.log('New account created:', response.data.account);
+            // console.log('New account created:', response.data.account);
             const newAcc = response.data.account;
+            setActiveAccount(newAcc._id);
+            await AsyncStorage.setItem('activeAcc', newAcc._id);
             setAcc([...acc, newAcc])
             setIsVisible(false);
         } catch (error) {
@@ -75,9 +77,7 @@ const RacuniScreen = ({navigation}) => {
     };
 
     const handleAccountPress = async (account) => {
-        console.log('handle: ', account)
         setActiveAccount(account);
-        // await AsyncStorage.setItem('activeAcc', activeAccount);
     };
 
     return (
