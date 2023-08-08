@@ -6,6 +6,10 @@ import DarkTheme from '../DarkTheme';
 import Header from '../components/UserInfo/Header';
 import DatePicker from 'react-native-date-picker'
 import Toast from 'react-native-toast-message';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const UserInfoScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
@@ -23,7 +27,7 @@ const UserInfoScreen = ({navigation}) => {
         });
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const data = {};
 
         if (name !== '') {
@@ -34,13 +38,20 @@ const UserInfoScreen = ({navigation}) => {
             data.surname = surname;
         }
 
-        setName('');
-        setSurname('');
-        console.log(data);
-        // navigation.goBack();
-        Alert.alert('Success', 'User data has been updated!');
-        // navigation.goBack();
-        showToast();
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}`
+            };
+
+            const response = await axios.put(`${apiURL}/users/update`, data, { headers });
+            console.log(response.data);
+            setName('');
+            setSurname('');
+            Alert.alert('Success', 'User data has been updated!');
+        } catch (error) {
+            console.log('Error: ', error)
+        }
     };
 
     return (
@@ -65,7 +76,7 @@ const UserInfoScreen = ({navigation}) => {
             </View>
                 <View style={styles.buttonContainer}>
                     <Button
-                        title='Add' 
+                        title='Update' 
                         onPress={handleSubmit} 
                         color={theme.ButtonColor}
                     />

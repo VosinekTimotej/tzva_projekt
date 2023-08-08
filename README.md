@@ -34,11 +34,13 @@
 - [x] Lepsi date prikaz
 - [ ] Delete racun
 - [x] Napisi ko ni transakcij
+- [ ] Login show msg if wrong password ali no user
 
 ## TODO EXTRA
 - [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
 - [ ] Mozno izbire icone pri kategoriji
 - [ ] Dvojezicnost
+- [ ] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov
