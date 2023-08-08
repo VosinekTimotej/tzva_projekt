@@ -9,8 +9,8 @@
 - [ ] Main footer za navigacijo
 - [ ] Uredit izgled
 - [x] Server dodat pri login/signup
-- [ ] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
-- [ ] Server za pridobivanje transakcij
+- [x] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
+- [x] Server za pridobivanje transakcij
 - [x] Dodaj kategorijo 
 - [ ] Mozno izbire icone pri kategoriji
 - [x] Meje screen
@@ -30,6 +30,10 @@
 - [ ] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
 - [ ] Dvojezicnost
+- [ ] Server User info
+- [ ] Server password
+- [ ] Server meje
+- [x] Lepsi date prikaz
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov

@@ -8,7 +8,7 @@ const Header = ({navigation, addPress}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     return (
-        <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
+        <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
             <View style={styles.logoContainer}>
                 <TouchableOpacity onPress={addPress}>
                     <Image
@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         alignItems: 'center',
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 0,
         justifyContent:'space-between',
+        borderBottomWidth: 1,
+        paddingBottom: 10,
     },
     logoImg:{
         width: 40,
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     },
     text:{
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingBottom: 10,
     },
 })

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Modal, Text, Button, StyleSheet } from 'react-native';
 
 const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
+    const formattedDate = new Date(transakcija.date).toLocaleDateString('en-GB');
     return (
         <Modal 
             visible={isVisiable} 
@@ -28,7 +29,7 @@ const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
                             ]}
                         >Transakcija ID: {transakcija.id}</Text>
                     </View> 
-                        <Text style={{color: theme.textColor}}>Date: {transakcija.date}</Text>
+                        <Text style={{color: theme.textColor}}>Date: {formattedDate}</Text>
                         <Text style={{color: theme.textColor}}>Id: {transakcija._id}</Text>
                         <Text style={{color: theme.textColor}}>Value: 
                             {transakcija.type=='cost' ? 

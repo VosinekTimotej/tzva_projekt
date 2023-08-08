@@ -18,12 +18,17 @@ const RacuniScreen = ({navigation}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const [acc, setAcc] = useState([]);
+    const [activeAccount, setActiveAccount] = useState([]);
 
     // se pozene ko se nalozi screen
     useEffect(() => {
         const fetchAccounts = async () => {
             try {
-                getAcc()
+                getAcc();
+                // const activeAccount = await AsyncStorage.getItem('activeAcc');
+                
+                setActiveAccount(await AsyncStorage.getItem('activeAcc'))
+                console.log('active', activeAccount)
             } catch (error) {
                 console.error('Error fetching accounts:', error);
             }
@@ -69,12 +74,18 @@ const RacuniScreen = ({navigation}) => {
         }
     };
 
+    const handleAccountPress = async (account) => {
+        console.log('handle: ', account)
+        setActiveAccount(account);
+        // await AsyncStorage.setItem('activeAcc', activeAccount);
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {acc.map((racun) =>(
-                    <Racun racun={racun} key={racun._id} />
+                    <Racun racun={racun} key={racun._id} activeAccount={activeAccount} onAccountPress={handleAccountPress}/>
                 ))}
             </ScrollView>
             <AddRacun 
