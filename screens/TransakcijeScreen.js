@@ -9,6 +9,8 @@ import LightTheme from '../LightTheme'
 import PodrobnoTransakcija from '../components/Transakcije/PodrobnoTransakcija'
 import AddTransakcijo from '../components/Transakcije/AddTransakcijo'
 
+import { SelectList } from 'react-native-dropdown-select-list';
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,6 +30,7 @@ const TransakcijeScreen = ({navigation}) => {
     const [transakcije, setTransakcije] = useState([]);
 
     const [search, setSearch] = useState('');
+    const [transactionType, setTransactionType] = useState('all');
 
     // se pozene ko se nalozi screen
     useEffect(() => {
@@ -97,16 +100,32 @@ const TransakcijeScreen = ({navigation}) => {
         setIsAddVisiable(true);
     };
     
-
+    const typeData=[
+        {key:'1', value:'all'},
+        {key:'2', value:'income'},
+        {key:'3', value:'cost'}
+    ]
 
     const filteredTransakcije = transakcije.filter((transakcija) => {
         const query = search.toLowerCase();
+        const type = transactionType.toLowerCase();
+
+        // Check for the selected transaction type or filter by all types
+        const typeFilter =
+            type === 'all' || transakcija.type.toLowerCase() === type;
+
         return (
-            transakcija.value.toString().includes(query) ||
-            transakcija.type.toLowerCase().includes(query) ||
-            transakcija.comment.toLowerCase().includes(query) ||
-            transakcija.category.toLowerCase().includes(query)
+            typeFilter &&
+            (transakcija.value.toString().includes(query) ||
+                transakcija.comment.toLowerCase().includes(query) ||
+                transakcija.category.toLowerCase().includes(query))
         );
+        // return (
+        //     transakcija.value.toString().includes(query) ||
+        //     transakcija.type.toLowerCase().includes(query) ||
+        //     transakcija.comment.toLowerCase().includes(query) ||
+        //     transakcija.category.toLowerCase().includes(query)
+        // );
     });
 
     return (
@@ -118,6 +137,14 @@ const TransakcijeScreen = ({navigation}) => {
                     placeholder="Search transactions"
                     value={search}
                     onChangeText={setSearch}
+                />
+            </View>
+            <View>
+                <SelectList 
+                    setSelected={(val) => setTransactionType(val)}
+                    data={typeData}
+                    save='value'
+                    boxStyles={{borderRadius:4}}
                 />
             </View>
             
