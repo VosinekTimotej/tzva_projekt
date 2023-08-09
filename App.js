@@ -1,14 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Pressable } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import SignedInStack, { SignedOutStack } from './navigation';
 import ThemeContext, { ThemeProvider } from './ThemeContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Footer from './components/Footer/Footer';
+import {useTranslation} from 'react-i18next';
+import './assets/i18n/i18n';
 
 export default function App() {
   // const { isDarkTheme } = useContext(ThemeContext);
   console.log()
+
+  const {t, i18n} = useTranslation();
+  
+
+  
+  const [currentLanguage,setLanguage] =useState('si');
+ 
+
   return (
     // <HomeScreen/>
     // <SignedInStack />
@@ -31,6 +41,7 @@ export default function App() {
         <Footer/>
       </View>*/}
       </View>
+      
     </ThemeProvider>
     
   );

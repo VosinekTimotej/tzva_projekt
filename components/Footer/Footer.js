@@ -4,12 +4,14 @@ import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
 import { useRoute } from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const Footer = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     const route = useRoute();
-    console.log(route.name);
+    const {t, i18n} = useTranslation();
 
     const barvaT = (route.name === "TransakcijeScreen") ? "grey" : "white"
     const barvaS = (route.name === "StanjeScreen") ? "grey" : "white"
@@ -21,17 +23,17 @@ const Footer = ({navigation}) => {
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={[styles.box, { backgroundColor: barvaS}]} >
             <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
-            <Text style={[styles.text, { color: theme.textColor }]}>Stanje</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Stanje")}</Text>
             </TouchableOpacity>
             </View>
             <View style={[styles.box, { backgroundColor: barvaT}]}>
             <TouchableOpacity onPress={() => navigation.push('TransakcijeScreen')}>
-            <Text style={[styles.text, { color: theme.textColor }]}>Transakcije</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Transakcije")}</Text>
             </TouchableOpacity>
             </View>
             <View style={[styles.box, { backgroundColor: barvaK}]}>
             <TouchableOpacity onPress={() => navigation.push('KategorijeScreen')}>
-            <Text style={[styles.text, { color: theme.textColor}]}>Kategorija</Text>
+            <Text style={[styles.text, { color: theme.textColor}]}>{t("Kategorija")}</Text>
             </TouchableOpacity>
             </View>
         </View>

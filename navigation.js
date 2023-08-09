@@ -13,6 +13,7 @@ import InfoScreen from './screens/InfoScreen'
 import MejeScreen from './screens/MejeScreen'
 import DohodkiScreen from './screens/DohodkiScreen'
 import OdhodkiScreen from './screens/OdhodkiScreen'
+import JezikScreen from './screens/JezikScreen'
 
 
 const Stack = createStackNavigator()
@@ -46,6 +47,7 @@ export const SignedOutStack = () => (
             <Stack.Screen name='RacuniScreen' component={RacuniScreen} />
             <Stack.Screen name='InfoScreen' component={InfoScreen} />
             <Stack.Screen name='MejeScreen' component={MejeScreen} />
+            <Stack.Screen name='JezikScreen' component={JezikScreen} />
         </Stack.Navigator>
     </NavigationContainer>
 )

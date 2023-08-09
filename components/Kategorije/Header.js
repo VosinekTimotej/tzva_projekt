@@ -3,10 +3,13 @@ import React, { useContext } from 'react'
 import ThemeContext from '../../ThemeContext';
 import LightTheme from '../../LightTheme';
 import DarkTheme from '../../DarkTheme';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const Header = ({navigation, onAddButtonPress}) => {
     const { isDarkTheme} = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={styles.backContainer}>
@@ -17,7 +20,7 @@ const Header = ({navigation, onAddButtonPress}) => {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={[styles.text, { color: theme.textColor }]}>Kategorije</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Kategorije")}</Text>
             <TouchableOpacity onPress={onAddButtonPress}> 
                 <Image 
                     style={styles.addLogo} 

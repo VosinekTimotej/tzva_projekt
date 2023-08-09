@@ -1,12 +1,17 @@
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const Header = ({navigation, addPress}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
+  
+ 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <View style={styles.logoContainer}>
@@ -17,7 +22,7 @@ const Header = ({navigation, addPress}) => {
                         />
                 </TouchableOpacity>
             </View>
-            <Text style={[styles.text, { color: theme.textColor }]}>Transakcije</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Transakcije")}</Text>
             <View>
                 <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
                     <Image 

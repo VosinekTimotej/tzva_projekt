@@ -17,12 +17,14 @@
     "expo-status-bar": "~1.4.4",
     "formik": "^2.4.2",
     "i18n-js": "^4.3.0",
+    "i18next": "^23.4.4",
     "react": "18.2.0",
+    "react-i18next": "^13.0.3",
     "react-native": "0.71.8",
+    "react-native-dropdown-select-list": "^2.0.4",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-responsive-linechart": "^5.7.1",
     "react-native-svg": "13.4.0",
-    "react-native-dropdown-select-list": "^2.0.4",
     "yup": "^1.2.0"
   },
   "devDependencies": {

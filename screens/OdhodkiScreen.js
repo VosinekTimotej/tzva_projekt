@@ -6,10 +6,13 @@ import Transakcija from '../components/Transakcije/Transakcija'
 import ThemeContext from '../ThemeContext'
 import DarkTheme from '../DarkTheme'
 import LightTheme from '../LightTheme'
+import {useTranslation} from 'react-i18next';
+import '../assets/i18n/i18n';
 
 const OdhodkiScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
 
     let dohodki = 0;
     TRANSAKCIJE.forEach((tr)=>{
@@ -21,8 +24,8 @@ const OdhodkiScreen = ({navigation}) => {
     return (
         <ScrollView style={[styles.container, { backgroundColor: theme.backgroundColor}]}>
             <Header navigation={navigation}/>
-            <Text style={[styles.heading, { color: theme.textColor }]} >Odhodki</Text>
-            <Text style={[styles.text, { color: theme.textColor }]} >Skupni odhodki: {dohodki}</Text>
+            <Text style={[styles.heading, { color: theme.textColor }]} >{t("Odhodki")}</Text>
+            <Text style={[styles.text, { color: theme.textColor }]} >{t("Skupni odhodki")}: {dohodki}</Text>
             
         </ScrollView>
     )
