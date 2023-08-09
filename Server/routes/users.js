@@ -212,6 +212,10 @@ router.delete('/acc', verifyToken, async (req, res)=>{
             return res.status(404).json({ error: 'Account not found or does not belong to the user' });
         }
 
+        // zbrisemo vse transakcije ki so na tem racunu
+        await Transaction.deleteMany({ acc_id: accId });
+
+        // zbrisemo racun
         await Account.deleteOne({ _id: accId });
 
         res.json({ msg: 'Account deleted successfully' });

@@ -29,11 +29,12 @@
 - [x] Napisi ko ni transakcij
 - [x] Login show msg if wrong password ali no user
 - [x] Dodaj alert error ce gre kaj narobe
+- [x] hashing passwords spremeni geslo, login, signup 
+- [x] Ko delete acc delate all transactions 
 - [ ] Main footer za navigacijo
 - [ ] Uredit izgled
 - [ ] Notification za  bližanje meji
 - [ ] Stanje screen
-- [x] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
 - [ ] Server meje
 
