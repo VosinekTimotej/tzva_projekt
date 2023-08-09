@@ -3,10 +3,17 @@ import { SafeAreaView, StyleSheet, Text, View, Pressable } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import SignedInStack, { SignedOutStack } from './navigation';
 import ThemeContext, { ThemeProvider } from './ThemeContext';
+
 import { useContext, useState } from 'react';
 import Footer from './components/Footer/Footer';
 import {useTranslation} from 'react-i18next';
 import './assets/i18n/i18n';
+
+import Toast from 'react-native-toast-message';
+
+import 'react-native-get-random-values';
+
+
 
 export default function App() {
   // const { isDarkTheme } = useContext(ThemeContext);
@@ -36,12 +43,16 @@ export default function App() {
         <SignedOutStack />
       </View> */}
       <SignedOutStack />
+
       {/*<View style={styles.footer}>
         
         <Footer/>
       </View>*/}
       </View>
       
+
+      <Toast />
+
     </ThemeProvider>
     
   );

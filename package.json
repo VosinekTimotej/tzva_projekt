@@ -13,6 +13,8 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
     "async-storage": "^0.1.0",
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "expo": "~48.0.18",
     "expo-status-bar": "~1.4.4",
     "formik": "^2.4.2",
@@ -21,10 +23,15 @@
     "react": "18.2.0",
     "react-i18next": "^13.0.3",
     "react-native": "0.71.8",
+    "react-native-bcrypt": "^2.4.0",
+    "react-native-date-picker": "^4.2.13",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-gesture-handler": "~2.9.0",
+    "react-native-get-random-values": "^1.9.0",
     "react-native-responsive-linechart": "^5.7.1",
     "react-native-svg": "13.4.0",
+    "react-native-toast-message": "^2.1.6",
+
     "yup": "^1.2.0"
   },
   "devDependencies": {
