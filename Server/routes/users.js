@@ -3,6 +3,7 @@ const router = express.Router();
 const { User, Account, Transaction } = require('../models/Models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const bcrypt = require('bcrypt');
 
 // verify if token is valid
 const verifyToken = (req, res, next) => {
@@ -37,11 +38,15 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { name, surname, username, password, birth_day } = req.body;
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         const newUser = await User.create({
             name,
             surname,
             username,
-            password,
+            password: hashedPassword,
             birth_day,
         });
 
@@ -81,8 +86,14 @@ router.route('/login').post(async (req,res)=>{
         }
 
         //! SAMO TEMP DOKLER NE NAREDIMO HASHING
-        if (password !== user.password){
-            return res.status(401).json({ message: 'Invalid username or password' });
+        // if (password !== user.password){
+        //     return res.status(401).json({ message: 'Invalid username or password' });
+        // }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Invalid username or password' });
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
