@@ -49,7 +49,7 @@
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov
-- Spremenis apiUrl da je na IPv4 od tvojega racunalnika
+- V korensko mapo dodaj .env file z spremenljivko IP=(vpiši svoj IPv4)
 
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>
