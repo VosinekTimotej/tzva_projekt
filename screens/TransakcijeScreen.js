@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Alert, TextInput } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Alert, TextInput, Image } from 'react-native'
 import React, { useEffect, useContext, useState } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
@@ -110,7 +110,6 @@ const TransakcijeScreen = ({navigation}) => {
         const query = search.toLowerCase();
         const type = transactionType.toLowerCase();
 
-        // Check for the selected transaction type or filter by all types
         const typeFilter =
             type === 'all' || transakcija.type.toLowerCase() === type;
 
@@ -120,31 +119,31 @@ const TransakcijeScreen = ({navigation}) => {
                 transakcija.comment.toLowerCase().includes(query) ||
                 transakcija.category.toLowerCase().includes(query))
         );
-        // return (
-        //     transakcija.value.toString().includes(query) ||
-        //     transakcija.type.toLowerCase().includes(query) ||
-        //     transakcija.comment.toLowerCase().includes(query) ||
-        //     transakcija.category.toLowerCase().includes(query)
-        // );
     });
 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
             <Header navigation={navigation} addPress={()=> setIsAddVisiable(true)}/>
-            <View>
+            <View style={styles.searchContainer}>
                 <TextInput
                     style={[styles.searchInput, { color: theme.textColor }]}
                     placeholder="Search transactions"
+                    placeholderTextColor={theme.textColor}
                     value={search}
                     onChangeText={setSearch}
                 />
             </View>
-            <View>
+            <View style={[styles.dropdownContainer, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
                 <SelectList 
                     setSelected={(val) => setTransactionType(val)}
                     data={typeData}
                     save='value'
-                    boxStyles={{borderRadius:4}}
+                    boxStyles={{borderRadius:4, marginLeft: 3, marginRight: 3,}}
+                    inputStyles={{color: theme.textColor}}
+                    dropdownTextStyles={{color: theme.textColor}}
+                    searchicon={<Image style={styles.searchIcon} source={theme.searchSource} />}
+                    arrowicon={<Image style={styles.searchIcon} source={theme.dropdownSource} />}
+                    closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
                 />
             </View>
             
@@ -194,5 +193,31 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginTop: 20, 
+    },
+    searchContainer:{
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 4,
+    },
+    searchInput:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        paddingHorizontal: 10,
+    },
+    dropdownContainer:{
+        paddingTop: 10,
+        paddingBottom: 10,
+        // marginLeft: 3,
+        // marginRight: 3,
+        borderBottomWidth: 1,
+    },
+    searchIcon:{
+        height: 20,
+        width: 20,
     },
 })

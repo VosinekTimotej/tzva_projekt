@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Modal, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
 
@@ -62,18 +62,25 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
                         onChangeText={setType}
                         style={[styles.input, {color: theme.textColor}]}
                     /> */}
-                    <SelectList 
-                        setSelected={(val) => setType(val)}
-                        data={typeData}
-                        save='value'
-                        boxStyles={{borderRadius:4}}
-                    />
+                    <View style={{paddingBottom: 10}}>
+                        <SelectList 
+                            setSelected={(val) => setType(val)}
+                            data={typeData}
+                            save='value'
+                            boxStyles={{borderRadius:4}}
+                            inputStyles={{color: theme.textColor}}
+                            dropdownTextStyles={{color: theme.textColor}}
+                            searchicon={<Image style={styles.searchIcon} source={theme.searchSource} />}
+                            arrowicon={<Image style={styles.searchIcon} source={theme.dropdownSource} />}
+                            closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
+                        />
+                    </View>
                     <TextInput
                         placeholder='Category'
                         placeholderTextColor={theme.textColor}
                         value={category}
                         onChangeText={setCategory}
-                        style={[styles.input, {color: theme.textColor}]}
+                        style={[styles.input, {color: theme.textColor, paddingTop: 10}]}
                     />
                     <TextInput
                         placeholder='Comment'
@@ -133,5 +140,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         paddingBottom: 5,
+    },
+    searchIcon:{
+        height: 20,
+        width: 20,
     },
 })

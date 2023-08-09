@@ -54,6 +54,9 @@
 - <img src="/assets/piggy-bank.png" alt="Piggy bank icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/money" title="money icons">Money icons created by Freepik - Flaticon</a>
 - <img src="/assets/setting.png" alt="Settings icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a>
 - <img src="/assets/delete.png" alt="Settings icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icon/delete_1214428?term=delete&page=1&position=1&origin=search&related_id=1214428" title="delete icons">Link delete icon</a> 
+- <img src="/assets/search.png" alt="Search icon" width="20" height="20" /> <a href="https://icons8.com/icon/7695/search" title="search icons">Link search icon</a> 
+- <img src="/assets/dropdown.png" alt="Dropdown icon" width="20" height="20" /> <a href="https://icons8.com/icon/39786/expand-arrow" title="dropdown icons">Link dropdown icon</a> 
+- <img src="/assets/close.png" alt="Close icon" width="20" height="20" /> <a href="https://icons8.com/icon/8112/close" title="close icons">Link close icon</a> 
 
 
 

@@ -104,7 +104,7 @@ const SignUpForm = ({navigation}) => {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.loginButton(isValid)} onPress={handleSubmit} disabled={!isValid}>
-                        <Text style={styles.loginButtonText}>Login</Text>
+                        <Text style={styles.loginButtonText}>Register</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.signUpContainer}>
