@@ -3,11 +3,17 @@ import React, { useContext } from 'react'
 import ThemeContext from '../../ThemeContext';
 import DarkTheme from '../../DarkTheme';
 import LightTheme from '../../LightTheme';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
+
 
 const Racun = ({racun, activeAccount, onAccountPress, onDeletePress}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+
     const isActiveAccount = racun._id === activeAccount;
     // console.log('tukaj', isActiveAccount)
 
@@ -25,7 +31,9 @@ const Racun = ({racun, activeAccount, onAccountPress, onDeletePress}) => {
         onDeletePress(racun._id)
         // console.log(racun._id); 
     }
-
+    
+    const {t, i18n} = useTranslation();
+  
     return (
         <View style={[styles.container, 
                     { backgroundColor: theme.backgroundColor, 
@@ -36,10 +44,10 @@ const Racun = ({racun, activeAccount, onAccountPress, onDeletePress}) => {
                     }]}
         >
             <TouchableOpacity onPress={handlePress}>
-                <Text style={[styles.imeRacuna,{color: theme.textColor}]}>Ime racuna: {racun.name}</Text>
-                <Text style={{color: theme.textColor}}>Stanje: {racun.balance}</Text>
+                <Text style={[styles.imeRacuna,{color: theme.textColor}]}>{t("Ime računa")}: {racun.name}</Text>
+                <Text style={{color: theme.textColor}}>{t("Stanje")}: {racun.balance}</Text>
                 <Text style={{color: theme.textColor}}>ID: {racun._id}</Text>
-                <Text style={{color: theme.textColor}}>Lastnik ID:{racun.user_id}</Text>
+                <Text style={{color: theme.textColor}}>{t("Lastnik")} ID:{racun.user_id}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleDelete}>
                 <Image 

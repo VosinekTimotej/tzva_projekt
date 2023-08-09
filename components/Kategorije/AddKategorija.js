@@ -3,10 +3,13 @@ import { View, Modal, Text, TextInput, Button, StyleSheet } from 'react-native';
 import ThemeContext from '../../ThemeContext';
 import LightTheme from '../../LightTheme';
 import DarkTheme from '../../DarkTheme';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const AddKategorija = ({ isVisible, onClose, onSubmit }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
 
     const [name, setName] = useState('');
 
@@ -25,10 +28,10 @@ const AddKategorija = ({ isVisible, onClose, onSubmit }) => {
             <View style={styles.container}>
                 <View style={[styles.content, {backgroundColor: theme.modalBackgroundColor}]}>
                     <View style={[styles.naslov, {backgroundColor: theme.modalBackgroundColor}]}>
-                        <Text style={[styles.naslovText, {color: theme.textColor}]}>Dodaj Kategorijo</Text>
+                        <Text style={[styles.naslovText, {color: theme.textColor}]}>{t("Dodaj kategorijo")}</Text>
                     </View>
                     <TextInput
-                        placeholder='Ime'
+                        placeholder={t("Ime")}
                         placeholderTextColor={theme.textColor}
                         value={name}
                         onChangeText={setName}
@@ -36,14 +39,14 @@ const AddKategorija = ({ isVisible, onClose, onSubmit }) => {
                     />
                     <View style={styles.buttonContainer}>
                         <Button 
-                            title='Add' 
+                            title={t("Dodaj")}
                             onPress={handleSubmit} 
                             color={theme.ButtonColor}
                         />
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button 
-                            title='Cancel' 
+                            title={t("Prekliči")}
                             onPress={onClose} 
                             color={theme.cancelButtonColor}
                         />

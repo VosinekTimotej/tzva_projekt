@@ -8,6 +8,8 @@ import DarkTheme from '../DarkTheme'
 import LightTheme from '../LightTheme'
 import PodrobnoTransakcija from '../components/Transakcije/PodrobnoTransakcija'
 import AddTransakcijo from '../components/Transakcije/AddTransakcijo'
+import Footer from '../components/Footer/Footer'
+import { useRoute } from '@react-navigation/native';
 
 import { SelectList } from 'react-native-dropdown-select-list';
 
@@ -99,6 +101,7 @@ const TransakcijeScreen = ({navigation}) => {
         createTransakcijo(data)
         setIsAddVisiable(true);
     };
+
     
     const typeData=[
         {key:'1', value:'all'},
@@ -120,6 +123,9 @@ const TransakcijeScreen = ({navigation}) => {
                 transakcija.category.toLowerCase().includes(query))
         );
     });
+
+    const route = useRoute();
+    //console.log(route.name);
 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
@@ -176,6 +182,9 @@ const TransakcijeScreen = ({navigation}) => {
                 onSubmit={handleAdd}
                 theme={theme}
             />
+            <View style={styles.footer}>
+                <Footer navigation={navigation}/>
+            </View>
         </View>
     )
 }
@@ -189,6 +198,7 @@ const styles = StyleSheet.create({
     scrollViewContent: {
         flexGrow: 1,
     },
+
     noTransactionsText: {
         textAlign: 'center',
         fontWeight: 'bold',
@@ -220,4 +230,9 @@ const styles = StyleSheet.create({
         height: 20,
         width: 20,
     },
+
+    footer:{
+        backgroundColor: "blue",
+        padding: 0,
+      },
 })

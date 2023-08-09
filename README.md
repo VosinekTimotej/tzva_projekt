@@ -6,9 +6,11 @@
 - Skeniraj qr kodo
 
 ## TODO
+
 - [x] Server dodat pri login/signup
 - [x] Izberemo na kateri acc se dodajajo transakcije (kako izbrati in oznaciti izbranega)
 - [x] Server za pridobivanje transakcij
+- [x] Main footer za navigacijo
 - [x] Dodaj kategorijo 
 - [x] Meje screen
 - [x] Dodaj mejo
@@ -41,7 +43,7 @@
 ## TODO EXTRA
 - [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
 - [ ] Mozno izbire icone pri kategoriji
-- [ ] Dvojezicnost
+- [x] Dvojezicnost
 - [ ] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
 - [ ] Pri spreminjanju password mora vpisat old password
 

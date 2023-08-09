@@ -1,12 +1,15 @@
 import { Button, Modal, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
     const [value, setValue] = useState('');
     const [type, setType] = useState('');
     const [category, setCategory] = useState('');
     const [comment, setComment] = useState('');
+    const {t, i18n} = useTranslation();
 
 
     const getCurrentDate = () => {
@@ -45,10 +48,10 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
             <View style={styles.modalContainer}>
                 <View style={[styles.modalContent, {backgroundColor: theme.modalBackgroundColor}]}>
                     <View style={[styles.naslov, {backgroundColor: theme.modalBackgroundColor}]}>
-                        <Text style={[styles.naslovText, {color: theme.textColor}]}>Dodaj Transakcijo</Text>
+                        <Text style={[styles.naslovText, {color: theme.textColor}]}>{t("Dodaj Transakcijo")}</Text>
                     </View>
                     <TextInput
-                        placeholder='Value'
+                        placeholder={t("Vrednost")}
                         placeholderTextColor={theme.textColor}
                         value={value}
                         onChangeText={setValue}
@@ -76,14 +79,14 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
                         />
                     </View>
                     <TextInput
-                        placeholder='Category'
+                        placeholder={t("Kategorija")}
                         placeholderTextColor={theme.textColor}
                         value={category}
                         onChangeText={setCategory}
                         style={[styles.input, {color: theme.textColor, paddingTop: 10}]}
                     />
                     <TextInput
-                        placeholder='Comment'
+                        placeholder={t("Komentar")}
                         placeholderTextColor={theme.textColor}
                         value={comment}
                         onChangeText={setComment}
@@ -91,14 +94,14 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
                     />
                     <View style={styles.buttonContainer}>
                         <Button 
-                            title='Add' 
+                            title={t("Dodaj")} 
                             onPress={handleSubmit} 
                             color={theme.ButtonColor}
                         />
                     </View>
                     <View style={styles.buttonContainer}>
                         <Button 
-                            title='Cancel' 
+                            title={t("Prekliči")}
                             onPress={onClose} 
                             color={theme.cancelButtonColor}
                         />

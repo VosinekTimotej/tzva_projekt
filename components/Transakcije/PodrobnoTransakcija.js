@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, Modal, Text, Button, StyleSheet } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import '../../assets/i18n/i18n';
 
 const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
     const formattedDate = new Date(transakcija.date).toLocaleDateString('en-GB');
+
+    const {t, i18n} = useTranslation();
     return (
         <Modal 
             visible={isVisiable} 
@@ -27,23 +31,25 @@ const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
                                 styles.naslovText, 
                                 {color: theme.textColor}
                             ]}
-                        >Transakcija ID: {transakcija.id}</Text>
+                        >{t("Transakcija ID")}: {transakcija.id}</Text>
                     </View> 
-                        <Text style={{color: theme.textColor}}>Date: {formattedDate}</Text>
+
+                        <Text style={{color: theme.textColor}}>{t("Datum")}: {formattedDate}</Text>
                         <Text style={{color: theme.textColor}}>Id: {transakcija._id}</Text>
-                        <Text style={{color: theme.textColor}}>Value: 
+                        <Text style={{color: theme.textColor}}>{t("Vrednost")}: 
+
                             {transakcija.type=='cost' ? 
                                 (<Text> -</Text>):
                                 (<Text> </Text>)} 
                                 {transakcija.value}
                         </Text>
-                        <Text style={{color: theme.textColor}}>Type: {transakcija.type}</Text>
-                        <Text style={{color: theme.textColor}}>Category: {transakcija.category}</Text>
-                        <Text style={{color: theme.textColor}}>Comment: {transakcija.comment}</Text>
+                        <Text style={{color: theme.textColor}}>{t("Tip")}: {transakcija.type}</Text>
+                        <Text style={{color: theme.textColor}}>{t("Kategorija")}: {transakcija.category}</Text>
+                        <Text style={{color: theme.textColor}}>{t("Komentar")}: {transakcija.comment}</Text>
                         
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title='Close' 
+                                title={t("Zapri")} 
                                 onPress={onClose} 
                                 color={theme.cancelButtonColor}
                             />
