@@ -6,7 +6,7 @@
 - Skeniraj qr kodo
 
 ## TODO
-- [ ] Main footer za navigacijo
+- [x] Main footer za navigacijo
 - [ ] Uredit izgled
 - [ ] Server dodat pri login/signup
 - [ ] Server za pridobivanje transakcij
@@ -28,7 +28,7 @@
 - [x] Screen change password
 - [ ] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
-- [ ] Dvojezicnost
+- [x] Dvojezicnost
 
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>

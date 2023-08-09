@@ -8,6 +8,8 @@ import DarkTheme from '../DarkTheme'
 import LightTheme from '../LightTheme'
 import PodrobnoTransakcija from '../components/Transakcije/PodrobnoTransakcija'
 import AddTransakcijo from '../components/Transakcije/AddTransakcijo'
+import Footer from '../components/Footer/Footer'
+import { useRoute } from '@react-navigation/native';
 
 //TODO Footer 
 
@@ -32,7 +34,8 @@ const TransakcijeScreen = ({navigation}) => {
         console.log(data)
         setIsAddVisiable(true);
     };
-    
+    const route = useRoute();
+    //console.log(route.name);
 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
@@ -62,6 +65,9 @@ const TransakcijeScreen = ({navigation}) => {
                 onSubmit={handleAdd}
                 theme={theme}
             />
+            <View style={styles.footer}>
+                <Footer navigation={navigation}/>
+            </View>
         </View>
     )
 }
@@ -75,4 +81,8 @@ const styles = StyleSheet.create({
     scrollViewContent: {
         flexGrow: 1,
     },
+    footer:{
+        backgroundColor: "blue",
+        padding: 0,
+      },
 })

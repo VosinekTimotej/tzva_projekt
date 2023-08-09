@@ -8,6 +8,7 @@ import Header from '../components/Kategorije/Header';
 import { KATEGORIJE } from '../data/Kategorije';
 import Kategorija from '../components/Kategorije/Kategorija';
 import AddKategorija from '../components/Kategorije/AddKategorija';
+import Footer from '../components/Footer/Footer';
 
 
 //TODO Footer 
@@ -36,6 +37,7 @@ const KategorijeScreen = ({navigation}) => {
                 onClose={()=>setIsVisible(false)}
                 onSubmit={handleAddKategorija}
             />
+            <Footer navigation={navigation}/>
         </View>
     )
 }
