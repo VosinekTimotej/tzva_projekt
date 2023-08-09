@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Alert } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Alert, TextInput } from 'react-native'
 import React, { useEffect, useContext, useState } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
@@ -26,6 +26,8 @@ const TransakcijeScreen = ({navigation}) => {
     const [isAddVisiable, setIsAddVisiable] = useState(false);
 
     const [transakcije, setTransakcije] = useState([]);
+
+    const [search, setSearch] = useState('');
 
     // se pozene ko se nalozi screen
     useEffect(() => {
@@ -96,14 +98,34 @@ const TransakcijeScreen = ({navigation}) => {
     };
     
 
+
+    const filteredTransakcije = transakcije.filter((transakcija) => {
+        const query = search.toLowerCase();
+        return (
+            transakcija.value.toString().includes(query) ||
+            transakcija.type.toLowerCase().includes(query) ||
+            transakcija.comment.toLowerCase().includes(query) ||
+            transakcija.category.toLowerCase().includes(query)
+        );
+    });
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
             <Header navigation={navigation} addPress={()=> setIsAddVisiable(true)}/>
+            <View>
+                <TextInput
+                    style={[styles.searchInput, { color: theme.textColor }]}
+                    placeholder="Search transactions"
+                    value={search}
+                    onChangeText={setSearch}
+                />
+            </View>
+            
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {transakcije.length === 0 ? (
                     <Text style={[styles.noTransactionsText, {color: theme.textColor} ]}>Ni transakcij</Text>
                 ) : (
-                    transakcije.map((transakcija) => (
+                    filteredTransakcije.map((transakcija) => (
                         <Transakcija transakcija={transakcija} key={transakcija._id} handlePress={handlePress} />
                     ))
                 )}

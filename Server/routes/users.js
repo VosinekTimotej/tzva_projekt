@@ -218,6 +218,11 @@ router.delete('/acc', verifyToken, async (req, res)=>{
         // zbrisemo racun
         await Account.deleteOne({ _id: accId });
 
+        // odstranimo acc id iz accounts array
+        const user = await User.findById(userId);
+        user.accounts = user.accounts.filter((accountId) => accountId.toString() !== accId);
+        await user.save();
+
         res.json({ msg: 'Account deleted successfully' });
     } catch (error) {
         console.error('Error :', error);
