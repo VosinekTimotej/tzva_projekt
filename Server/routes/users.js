@@ -140,7 +140,10 @@ router.put('/password', verifyToken, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        if (newPassword) {user.password = newPassword;}
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+        if (hashedPassword) {user.password = hashedPassword;}
 
         await user.save();
 

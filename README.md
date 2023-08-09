@@ -33,7 +33,7 @@
 - [ ] Uredit izgled
 - [ ] Notification za  bližanje meji
 - [ ] Stanje screen
-- [ ] hashing passwords spremeni geslo, login, signup 
+- [x] hashing passwords spremeni geslo, login, signup 
 - [ ] Spreminjanje valute
 - [ ] Server meje
 
