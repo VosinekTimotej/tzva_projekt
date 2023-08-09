@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Modal, StyleSheet, Text, TextInput, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SelectList } from 'react-native-dropdown-select-list';
 import {useTranslation} from 'react-i18next';
@@ -24,7 +24,6 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
     const handleSubmit = () => {
         const currentDate = getCurrentDate();
         onSubmit({
-            id: 0, // treba spremenit 
             date: currentDate,
             value: parseFloat(value),
             type: type,
@@ -40,8 +39,8 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
     };
 
     const typeData=[
-        {key:'1', value:'Income'},
-        {key:'2', value:'Cost'}
+        {key:'1', value:'income'},
+        {key:'2', value:'cost'}
     ]
 
     return (
@@ -66,18 +65,25 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
                         onChangeText={setType}
                         style={[styles.input, {color: theme.textColor}]}
                     /> */}
-                    <SelectList 
-                        setSelected={(val) => setType(val)}
-                        data={typeData}
-                        save='value'
-                        boxStyles={{borderRadius:4}}
-                    />
+                    <View style={{paddingBottom: 10}}>
+                        <SelectList 
+                            setSelected={(val) => setType(val)}
+                            data={typeData}
+                            save='value'
+                            boxStyles={{borderRadius:4}}
+                            inputStyles={{color: theme.textColor}}
+                            dropdownTextStyles={{color: theme.textColor}}
+                            searchicon={<Image style={styles.searchIcon} source={theme.searchSource} />}
+                            arrowicon={<Image style={styles.searchIcon} source={theme.dropdownSource} />}
+                            closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
+                        />
+                    </View>
                     <TextInput
                         placeholder={t("Kategorija")}
                         placeholderTextColor={theme.textColor}
                         value={category}
                         onChangeText={setCategory}
-                        style={[styles.input, {color: theme.textColor}]}
+                        style={[styles.input, {color: theme.textColor, paddingTop: 10}]}
                     />
                     <TextInput
                         placeholder={t("Komentar")}
@@ -137,5 +143,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         paddingBottom: 5,
+    },
+    searchIcon:{
+        height: 20,
+        width: 20,
     },
 })

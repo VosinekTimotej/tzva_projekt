@@ -1,10 +1,14 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const SignUpForm = ({navigation}) => {
-
+    // kaksni podatki se pricakujejo pri vnosu
     const Schema = Yup.object().shape({
         email: Yup.string()
             .required('Email is required')
@@ -23,8 +27,21 @@ const SignUpForm = ({navigation}) => {
             )
     })
 
-    const handleSignup = (values) => {
-        console.log('email, username and password:', values.email, values.username, values.password);
+    // posljemo podatke o uporabniku na streznik in ustvarimo nov user
+    const handleSignup = async (values) => {
+        try{
+            const response = await axios.post(apiURL+'/users', values);
+            console.log('User signup successful:', response.data);
+            const token = response.data.token;
+            await AsyncStorage.setItem('userToken', token);
+            const acc = response.data.acc
+            console.log("acc: ", acc)
+            await AsyncStorage.setItem('activeAcc', acc);
+            navigation.push('TransakcijeScreen');
+        }catch(err){
+            console.log('Error: ', err)
+            Alert.alert('Error', 'Something went wrong with creating new account!');
+        }
     };
 
     return (
@@ -87,7 +104,7 @@ const SignUpForm = ({navigation}) => {
                 </View>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.loginButton(isValid)} onPress={handleSubmit} disabled={!isValid}>
-                        <Text style={styles.loginButtonText}>Login</Text>
+                        <Text style={styles.loginButtonText}>Register</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.signUpContainer}>

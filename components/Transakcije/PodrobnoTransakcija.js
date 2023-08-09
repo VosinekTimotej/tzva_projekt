@@ -4,6 +4,8 @@ import {useTranslation} from 'react-i18next';
 import '../../assets/i18n/i18n';
 
 const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
+    const formattedDate = new Date(transakcija.date).toLocaleDateString('en-GB');
+
     const {t, i18n} = useTranslation();
     return (
         <Modal 
@@ -31,9 +33,11 @@ const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
                             ]}
                         >{t("Transakcija ID")}: {transakcija.id}</Text>
                     </View> 
-                        <Text style={{color: theme.textColor}}>{t("Datum")}: {transakcija.date}</Text>
-                        <Text style={{color: theme.textColor}}>Id: {transakcija.id}</Text>
+
+                        <Text style={{color: theme.textColor}}>{t("Datum")}: {formattedDate}</Text>
+                        <Text style={{color: theme.textColor}}>Id: {transakcija._id}</Text>
                         <Text style={{color: theme.textColor}}>{t("Vrednost")}: 
+
                             {transakcija.type=='cost' ? 
                                 (<Text> -</Text>):
                                 (<Text> </Text>)} 

@@ -1,10 +1,14 @@
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok
 
 const LoginForm = ({navigation}) => {
-
+    // kaksne podatke zahtevamo
     const LoginSchema = Yup.object().shape({
         username: Yup.string()
             .required('Username is required')
@@ -19,8 +23,27 @@ const LoginForm = ({navigation}) => {
             )
     })
 
-    const handleLogin = (values) => {
-        console.log('username and password:', values.username, values.password);
+    // pridobi podatke in vpise uporabnika
+    const handleLogin = async (values) => {
+        try {
+            const response = await axios.post(apiURL+'/users/login', values);
+            const token = response.data.token;
+            await AsyncStorage.setItem('userToken', token);
+            const acc = response.data.acc
+            const storedActiveAcc = await AsyncStorage.getItem('activeAcc');
+            console.log('storedActiveAcc', storedActiveAcc)
+            if (!storedActiveAcc) {
+                await AsyncStorage.setItem('activeAcc', acc);
+            }
+            navigation.push('TransakcijeScreen');
+        } catch (error) {
+            console.log("Error: ", error)
+            if (error.response && error.response.status === 401) {
+                Alert.alert('Error', 'Wrong username or password.');
+            } else {
+                Alert.alert('Error', 'Something went wrong with login.');
+            }
+        }
     };
 
     return (

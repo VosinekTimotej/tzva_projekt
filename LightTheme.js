@@ -7,6 +7,10 @@ const LightTheme = {
     borderBottomColor: '#000',
     backSource: require('./assets/Back.png'),
     addSource: require('./assets/add.png'),
+    deleteSource: require('./assets/delete.png'),
+    searchSource: require('./assets/search.png'),
+    dropdownSource: require('./assets/dropdown.png'),
+    closeSource: require('./assets/close.png'),
     
     // Add Meja modal
     ButtonColor: '#4CAF50',

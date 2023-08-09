@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useContext, useState } from 'react'
+import { ScrollView, StyleSheet, Text, View, Alert, TextInput, Image } from 'react-native'
+import React, { useEffect, useContext, useState } from 'react'
 import { TRANSAKCIJE } from '../data/Transakcije'
 import Header from '../components/Transakcije/Header'
 import Transakcija from '../components/Transakcije/Transakcija'
@@ -11,7 +11,12 @@ import AddTransakcijo from '../components/Transakcije/AddTransakcijo'
 import Footer from '../components/Footer/Footer'
 import { useRoute } from '@react-navigation/native';
 
-//TODO Footer 
+import { SelectList } from 'react-native-dropdown-select-list';
+
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const apiURL = 'http:192.168.1.12:5000' // Rok 
 
 const TransakcijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
@@ -24,6 +29,68 @@ const TransakcijeScreen = ({navigation}) => {
     // add modal
     const [isAddVisiable, setIsAddVisiable] = useState(false);
 
+    const [transakcije, setTransakcije] = useState([]);
+
+    const [search, setSearch] = useState('');
+    const [transactionType, setTransactionType] = useState('all');
+
+    // se pozene ko se nalozi screen
+    useEffect(() => {
+        const fetchTransakcije = async () => {
+            try {
+                getTransakcije()
+            } catch (error) {
+                console.error('Error fetching transakcije:', error);
+            }
+        };
+
+        fetchTransakcije();
+    }, []);
+
+    const getTransakcije = async () =>{
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const acc = await AsyncStorage.getItem('activeAcc');
+            const headers = {
+                Authorization: `${token}`, 
+                Account: `${acc}`
+            };
+
+            const response = await axios.get(`${apiURL}/transactions`, { headers });
+            setTransakcije(response.data.transakcije)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with getting transactions data!');
+        }
+    }
+
+    const createTransakcijo = async (data) => {
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const acc = await AsyncStorage.getItem('activeAcc');
+            const headers = {
+                Authorization: `${token}`
+            };
+            const body = {
+                acc_id: acc,
+                comment: data.comment,
+                value: data.value,
+                type: data.type,
+                category: data.category,
+                date: data.date
+            }
+
+            const response = await axios.post(`${apiURL}/transactions`, body, { headers });
+            // console.log(response.data.transakcija)
+
+            const newTransakcija = response.data.transakcija;
+            setTransakcije([...transakcije, newTransakcija])
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with adding new transaction!');
+        }
+    }
+
     const handlePress = (transakcija) => {
         console.log(transakcija)
         setSelected(transakcija);
@@ -31,19 +98,69 @@ const TransakcijeScreen = ({navigation}) => {
     };
 
     const handleAdd = (data) => {
-        console.log(data)
+        createTransakcijo(data)
         setIsAddVisiable(true);
     };
+
+    
+    const typeData=[
+        {key:'1', value:'all'},
+        {key:'2', value:'income'},
+        {key:'3', value:'cost'}
+    ]
+
+    const filteredTransakcije = transakcije.filter((transakcija) => {
+        const query = search.toLowerCase();
+        const type = transactionType.toLowerCase();
+
+        const typeFilter =
+            type === 'all' || transakcija.type.toLowerCase() === type;
+
+        return (
+            typeFilter &&
+            (transakcija.value.toString().includes(query) ||
+                transakcija.comment.toLowerCase().includes(query) ||
+                transakcija.category.toLowerCase().includes(query))
+        );
+    });
+
     const route = useRoute();
     //console.log(route.name);
 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}> 
             <Header navigation={navigation} addPress={()=> setIsAddVisiable(true)}/>
+            <View style={styles.searchContainer}>
+                <TextInput
+                    style={[styles.searchInput, { color: theme.textColor }]}
+                    placeholder="Search transactions"
+                    placeholderTextColor={theme.textColor}
+                    value={search}
+                    onChangeText={setSearch}
+                />
+            </View>
+            <View style={[styles.dropdownContainer, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+                <SelectList 
+                    setSelected={(val) => setTransactionType(val)}
+                    data={typeData}
+                    save='value'
+                    boxStyles={{borderRadius:4, marginLeft: 3, marginRight: 3,}}
+                    inputStyles={{color: theme.textColor}}
+                    dropdownTextStyles={{color: theme.textColor}}
+                    searchicon={<Image style={styles.searchIcon} source={theme.searchSource} />}
+                    arrowicon={<Image style={styles.searchIcon} source={theme.dropdownSource} />}
+                    closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
+                />
+            </View>
+            
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {TRANSAKCIJE.map((transakcija, index) => (
-                    <Transakcija transakcija={transakcija} key={transakcija.id} handlePress={handlePress} />
-                ))}
+                {transakcije.length === 0 ? (
+                    <Text style={[styles.noTransactionsText, {color: theme.textColor} ]}>Ni transakcij</Text>
+                ) : (
+                    filteredTransakcije.map((transakcija) => (
+                        <Transakcija transakcija={transakcija} key={transakcija._id} handlePress={handlePress} />
+                    ))
+                )}
             </ScrollView>
 
             {selected? (
@@ -81,6 +198,39 @@ const styles = StyleSheet.create({
     scrollViewContent: {
         flexGrow: 1,
     },
+
+    noTransactionsText: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginTop: 20, 
+    },
+    searchContainer:{
+        paddingTop: 10,
+        paddingBottom: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 5,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 4,
+    },
+    searchInput:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        paddingHorizontal: 10,
+    },
+    dropdownContainer:{
+        paddingTop: 10,
+        paddingBottom: 10,
+        // marginLeft: 3,
+        // marginRight: 3,
+        borderBottomWidth: 1,
+    },
+    searchIcon:{
+        height: 20,
+        width: 20,
+    },
+
     footer:{
         backgroundColor: "blue",
         padding: 0,

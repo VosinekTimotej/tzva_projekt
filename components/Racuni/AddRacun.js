@@ -6,6 +6,7 @@ import DarkTheme from '../../DarkTheme';
 import {useTranslation} from 'react-i18next';
 import '../../assets/i18n/i18n';
 
+
 const AddRacun = ({ isVisible, onClose, onSubmit }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
@@ -15,9 +16,7 @@ const AddRacun = ({ isVisible, onClose, onSubmit }) => {
 
     const handleSubmit = () => {
         onSubmit({
-            id: 0, 
             name: name,
-            balance: 0
         });
         setName('');
         onClose();
