@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, StatusBar, Image } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React from 'react'
 import SignUpForm from '../components/SignUp/SignUpForm'
 
 const SignUpScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
                 <View style={styles.logoContainer}>
                     <Image style={styles.logo} source={require('../assets/piggy-bank.png')} />
                 </View>
@@ -14,7 +14,7 @@ const SignUpScreen = ({navigation}) => {
                 <View style={styles.loginFormContainer}>
                     <SignUpForm navigation={navigation}/>
                 </View>
-            </View>
+        </ScrollView>
     )
 }
 
@@ -23,7 +23,6 @@ export default SignUpScreen
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        paddingTop: StatusBar.currentHeight || 0,
     },
     logoContainer:{
         alignItems: 'center',

@@ -15,8 +15,9 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IP} from "@env"
 
-const apiURL = 'http:192.168.1.12:5000' // Rok 
+const apiURL = 'http:'+process.env.IP+':5000' // Rok 
 
 const TransakcijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);

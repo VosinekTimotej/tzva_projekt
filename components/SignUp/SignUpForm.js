@@ -1,11 +1,13 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IP} from "@env"
 
-const apiURL = 'http:192.168.1.12:5000' // Rok
+console.log(process.env.IP)
+const apiURL = 'http:'+process.env.IP+':5000' // Rok
 
 const SignUpForm = ({navigation}) => {
     // kaksni podatki se pricakujejo pri vnosu
@@ -45,6 +47,7 @@ const SignUpForm = ({navigation}) => {
     };
 
     return (
+        <KeyboardAvoidingView>
         <Formik
             initialValues={{email:'', username:'', password:''}}
             onSubmit={(values) => {handleSignup(values)}}
@@ -116,6 +119,7 @@ const SignUpForm = ({navigation}) => {
             </View>
             )}
         </Formik>
+        </KeyboardAvoidingView>
     )
 }
 

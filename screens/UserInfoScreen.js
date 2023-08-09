@@ -8,8 +8,9 @@ import DatePicker from 'react-native-date-picker'
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IP} from "@env"
 
-const apiURL = 'http:192.168.1.12:5000' // Rok
+const apiURL = 'http:'+process.env.IP+':5000' // Rok
 
 const UserInfoScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);

@@ -10,8 +10,10 @@ import * as Yup from 'yup';
 
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IP} from "@env"
 
-const apiURL = 'http:192.168.1.12:5000' // Rok 
+
+const apiURL = 'http:'+process.env.IP+':5000' // Rok 
 
 // import bcrypt from 'bcryptjs';
 

@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, StatusBar, Image } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet, StatusBar, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
+import * as React from 'react'
 import LoginForm from '../components/Login/LoginForm'
 
 const LoginScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../assets/piggy-bank.png')} />
             </View>
@@ -14,7 +14,7 @@ const LoginScreen = ({navigation}) => {
             <View style={styles.loginFormContainer}>
                 <LoginForm navigation={navigation}/>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -23,7 +23,6 @@ export default LoginScreen
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        paddingTop: StatusBar.currentHeight || 0,
     },
     logoContainer:{
         alignItems: 'center',
@@ -43,4 +42,9 @@ const styles = StyleSheet.create({
     loginFormContainer:{
         marginTop: 20,
     },
+    inner: {
+        padding: 24,
+        flex: 1,
+        justifyContent: 'space-around',
+      },
 })
