@@ -54,10 +54,11 @@ const TransakcijeScreen = ({navigation}) => {
             const acc = await AsyncStorage.getItem('activeAcc');
             const headers = {
                 Authorization: `${token}`, 
-                Account: `${acc}`
+                // Account: `${acc}`
             };
 
-            const response = await axios.get(`${apiURL}/transactions`, { headers });
+            // const response = await axios.get(`${apiURL}/transactions`, { headers });
+            const response = await axios.get(`${apiURL}/transactions/acc/${acc}`, { headers });
             setTransakcije(response.data.transakcije)
         } catch (error) {
             console.log('Error: ', error)

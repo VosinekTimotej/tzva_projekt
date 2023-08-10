@@ -46,6 +46,7 @@ const PodrobnoTransakcija = ({ isVisiable, onClose, transakcija, theme}) => {
                         <Text style={{color: theme.textColor}}>{t("Tip")}: {transakcija.type}</Text>
                         <Text style={{color: theme.textColor}}>{t("Kategorija")}: {transakcija.category}</Text>
                         <Text style={{color: theme.textColor}}>{t("Komentar")}: {transakcija.comment}</Text>
+                        <Text style={{color: theme.textColor}}>{t("Uporabnik")}: {transakcija.user_id}</Text>
                         
                         <View style={styles.buttonContainer}>
                             <Button 
