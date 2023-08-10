@@ -76,6 +76,25 @@ const RacuniScreen = ({navigation}) => {
         }
     };
 
+    // dodaj racun preko ID
+    const handleAddRacunID = async (data) => {
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+            console.log(`${apiURL}/users/acc/${data}`)
+            const response = await axios.put(`${apiURL}/users/acc/${data}`, {}, { headers });
+            const newAcc = response.data.account;
+            setAcc([...acc, newAcc])
+            setIsVisible(false);
+            console.log('data: ', data)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with adding new account!');
+        }
+    }
+
     const handleAccountPress = async (account) => {
         setActiveAccount(account);
     };
@@ -116,6 +135,7 @@ const RacuniScreen = ({navigation}) => {
                 isVisible={isVisible}
                 onClose={()=>setIsVisible(false)}
                 onSubmit={handleAddRacun}
+                onSubmitID={handleAddRacunID}
             />
         </View>
     )

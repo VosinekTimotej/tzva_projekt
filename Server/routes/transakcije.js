@@ -53,6 +53,32 @@ router.get('/', verifyToken, async (req, res) => {
     }
 })
 
+// transactions for acc
+router.get('/acc/:accId', verifyToken, async (req, res) => {
+    try {
+        const user_id = req.userId;
+        // const {acc_id} = req.body;
+        const accId = req.params.accId;
+        // console.log(user_id)
+        // console.log(acc_id)
+        if (!accId) {
+            return res.status(400).json({ error: 'accId is required query parameters' });
+        }
+
+        // ce obstaja acc
+        const account = await Account.findById(accId);
+        if (!account) {
+            console.log('account ne obstaja')
+            return res.status(404).json({ error: 'Account not found' });
+        }
+
+        const transakcije = await Transaction.find({ acc_id: accId });
+        res.json({ transakcije });
+    } catch (error) {
+        console.error('Error getting transakcije:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
 
 // dodajanje nove transakcije
 router.post('/', verifyToken, async (req, res) =>{

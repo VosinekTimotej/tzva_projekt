@@ -181,9 +181,46 @@ router.put('/acc', verifyToken, async (req, res) => {
     }
 });
 
+// add existing acc using ID
+router.put('/acc/:accId', verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const accId = req.params.accId;
+        console.log('acc id: ',accId);
+
+        // ce obstaja user
+        const user = await User.findById(userId);
+        if (!user) {
+            console.log('User ne obstaja')
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // ce obstaja acc
+        const account = await Account.findById(accId);
+        if (!account) {
+            console.log('account ne obstaja')
+            return res.status(404).json({ error: 'Account not found' });
+        }
+
+        // ce ze ima ta acc dodan
+        if (user.accounts.includes(accId)) {
+            console.log('Ze ima acc')
+            return res.status(400).json({ error: 'User already has this account' });
+        }
+
+        user.accounts.push(account._id);
+        await user.save();
+        
+        res.json({ msg: 'Acc added to user', account });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 // get all acc data for user
 router.get('/acc', verifyToken, async (req, res) => {
-    try{
+    try {
         const userId = req.userId;
         
         const user = await User.findById(userId);
@@ -191,12 +228,12 @@ router.get('/acc', verifyToken, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        const accounts = await Account.find({ user_id: userId });
+        const accountIds = user.accounts;
+        const accounts = await Account.find({ _id: { $in: accountIds } });
 
         res.json({ accounts });
-    }
-    catch (error) {
-        console.error('Error :', error);
+    } catch (error) {
+        console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

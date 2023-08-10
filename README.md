@@ -41,11 +41,12 @@
 - [ ] Server meje
 
 ## TODO EXTRA
-- [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
+- [x] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
 - [ ] Mozno izbire icone pri kategoriji
 - [x] Dvojezicnost
-- [ ] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
+- [x] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
 - [ ] Pri spreminjanju password mora vpisat old password
+- [ ] Pri skupnih racunih imajo drugo barvo ce nisi owner (mores dobit svoj current ID in ga primerjas s racun.user_id)
 
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov
