@@ -220,7 +220,7 @@ router.put('/acc/:accId', verifyToken, async (req, res) => {
 
 // get all acc data for user
 router.get('/acc', verifyToken, async (req, res) => {
-    try{
+    try {
         const userId = req.userId;
         
         const user = await User.findById(userId);
@@ -228,12 +228,12 @@ router.get('/acc', verifyToken, async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        const accounts = await Account.find({ user_id: userId });
+        const accountIds = user.accounts;
+        const accounts = await Account.find({ _id: { $in: accountIds } });
 
         res.json({ accounts });
-    }
-    catch (error) {
-        console.error('Error :', error);
+    } catch (error) {
+        console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
