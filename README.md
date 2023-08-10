@@ -44,7 +44,7 @@
 - [ ] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun
 - [ ] Mozno izbire icone pri kategoriji
 - [x] Dvojezicnost
-- [ ] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
+- [x] Iskanje po transakcijah (type, category) - na transakcije screen neko polje za iskanje
 - [ ] Pri spreminjanju password mora vpisat old password
 
 ## Server nastavitve

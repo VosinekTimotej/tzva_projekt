@@ -7,17 +7,24 @@ import {useTranslation} from 'react-i18next';
 import '../../assets/i18n/i18n';
 
 
-const AddRacun = ({ isVisible, onClose, onSubmit }) => {
+const AddRacun = ({ isVisible, onClose, onSubmit, onSubmitID }) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
     const {t, i18n} = useTranslation();
 
     const [name, setName] = useState('');
+    const [idRacuna, setIdRacuna] = useState('');
 
     const handleSubmit = () => {
-        onSubmit({
-            name: name,
-        });
+        if (name) {
+            onSubmit({ name });
+            console.log('name: ', name)
+        } else if (idRacuna) {
+            onSubmitID(idRacuna)
+            console.log('id:', idRacuna)
+        }
+        setName('');
+        setIdRacuna('');
         setName('');
         onClose();
     };
@@ -34,6 +41,13 @@ const AddRacun = ({ isVisible, onClose, onSubmit }) => {
                         placeholderTextColor={theme.textColor}
                         value={name}
                         onChangeText={setName}
+                        style={[styles.input, {color: theme.textColor}]}
+                    />
+                    <TextInput
+                        placeholder={t("ID")}
+                        placeholderTextColor={theme.textColor}
+                        value={idRacuna}
+                        onChangeText={setIdRacuna}
                         style={[styles.input, {color: theme.textColor}]}
                     />
                     <View style={styles.buttonContainer}>
