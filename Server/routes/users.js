@@ -328,4 +328,38 @@ router.post('/category', verifyToken, async(req,res)=>{
     }
 })
 
+// delete category
+router.delete('/category', verifyToken, async(req,res)=>{
+    try {
+        const userId = req.userId;
+        const categoryId = req.body.categoryId;
+        
+        // check if user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        
+        // check if category exists
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        // Remove from users array
+        const updatedCategories = user.categories.filter(cat => cat.toString() !== categoryId);
+        user.categories = updatedCategories;
+        await user.save();
+
+        // Delete category
+        await Category.deleteOne({ _id: categoryId });
+
+        res.json({ message: 'Category deleted successfully' });
+        
+    } catch (error) {
+        console.error('Error deleting category:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 module.exports = router;
