@@ -279,14 +279,32 @@ router.get('/categories', verifyToken, async (req, res) => {
     }
 });
 
+// get all users categories
+router.get('/category', verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        // poiscemo user
+        const user = await User.findById(userId).populate('categories');
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // get all categories
+        const userCategories = user.categories;
+
+        res.json(userCategories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // create and add category to user
 router.post('/category', verifyToken, async(req,res)=>{
     try {
         const userId = req.userId;
         const { name, max_spend } = req.body;
-        console.log(userId)
-        console.log(name)
-        console.log(max_spend)
 
         // find user
         const user = await User.findById(userId);
