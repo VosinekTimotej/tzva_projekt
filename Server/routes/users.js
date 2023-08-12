@@ -362,4 +362,36 @@ router.delete('/category', verifyToken, async(req,res)=>{
     }
 })
 
+// edit category
+// update user info
+router.put('/category', verifyToken, async (req, res) => {
+    try {
+        const { categoryId, max_spend, current } = req.body;  // ce bomo dodali da ima current vrednost
+        const userId = req.userId;
+        // const categoryId = req.body.categoryId;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // check if category exists
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        if (max_spend) {category.max_spend = max_spend;}
+        if (current) {category.current = category.current+ current;} // pristejemo koliko smo zapravili
+
+        await category.save();
+
+        res.json({ msg: 'Category data updated', category });
+
+    } catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 module.exports = router;

@@ -30,6 +30,7 @@ const transactionSchema = new mongoose.Schema({
 const categorySchema = new mongoose.Schema({
     name: { type: String, required: true},
     max_spend: { type: Number, required: true },
+    current: { type: Number, default: 0 }
 });
 
 const User = mongoose.model('User', userSchema);
