@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User, Account, Transaction } = require('../models/Models');
+const { User, Account, Transaction, Category } = require('../models/Models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -263,6 +263,49 @@ router.delete('/acc', verifyToken, async (req, res)=>{
         res.json({ msg: 'Account deleted successfully' });
     } catch (error) {
         console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+// categories
+// get all categories for testing
+router.get('/categories', verifyToken, async (req, res) => {
+    try {
+        const cat = await Category.find();
+        res.json(cat);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// create and add category to user
+router.post('/category', verifyToken, async(req,res)=>{
+    try {
+        const userId = req.userId;
+        const { name, max_spend } = req.body;
+        console.log(userId)
+        console.log(name)
+        console.log(max_spend)
+
+        // find user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // create new category
+        const category = new Category({ name: name, max_spend: max_spend});
+        await category.save();
+
+        // add category to users array
+        user.categories.push(category._id);
+        await user.save();
+
+        res.json({ msg: 'Category added to user', category });
+
+    } catch (error) {
+        console.error('Error fetching categories:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 })

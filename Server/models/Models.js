@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     active_account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account'},
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
-    birth_day: { type: Date }
+    birth_day: { type: Date },
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
 });
 
 const accountSchema = new mongoose.Schema({
@@ -26,12 +27,19 @@ const transactionSchema = new mongoose.Schema({
     date: {type: Date}
 });
 
+const categorySchema = new mongoose.Schema({
+    name: { type: String, required: true},
+    max_spend: { type: Number, required: true },
+});
+
 const User = mongoose.model('User', userSchema);
 const Account = mongoose.model('Account', accountSchema);
 const Transaction = mongoose.model('Transaction', transactionSchema);
+const Category = mongoose.model('Category', categorySchema);
 
 module.exports = {
     User,
     Account,
-    Transaction
+    Transaction,
+    Category
 };
