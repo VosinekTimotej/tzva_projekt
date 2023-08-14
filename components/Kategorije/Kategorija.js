@@ -20,13 +20,21 @@ const Kategorija = ({kategorija, onDeletePress}) => {
         console.log(kategorija._id)
         onDeletePress(kategorija._id)
     }
+    
+    const color = (kategorija.max_spend - kategorija.current)< 30 ? "red": ((kategorija.max_spend - kategorija.current)< 100 ? "orange": "green");
+
     return (
-        <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
+        <View style={[styles.container, 
+                        { backgroundColor: theme.backgroundColor, 
+                        borderBottomColor: theme.borderBottomColor, 
+                        borderRightColor: color
+                    }]}>
             
             <TouchableOpacity onPress={handlePress}>
                 <View>
-                    <Text style={[styles.ime,{color: theme.textColor}]}> {kategorija.name}</Text>
-                    <Text style={{color: theme.textColor}}>{kategorija.max_spend}</Text>
+                    <Text style={[styles.ime,{color: theme.textColor}]}>Ime: {kategorija.name}</Text>
+                    <Text style={{color: theme.textColor}}>Max spend: {kategorija.max_spend}</Text>
+                    <Text style={{color: theme.textColor}}>Current: {kategorija.current}</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleDelete}>
@@ -49,6 +57,7 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         flexDirection: 'row',
         justifyContent:'space-between',
+        borderRightWidth: 10,
     },
     ime:{
         fontSize: 16,
