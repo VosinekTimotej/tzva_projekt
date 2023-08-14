@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import ThemeContext from '../ThemeContext';
 import DarkTheme from '../DarkTheme';
@@ -9,6 +9,11 @@ import { KATEGORIJE } from '../data/Kategorije';
 import Kategorija from '../components/Kategorije/Kategorija';
 import AddKategorija from '../components/Kategorije/AddKategorija';
 import Footer from '../components/Footer/Footer';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {IP} from "@env"
+
+const apiURL = 'http:'+process.env.IP+':5000' // Rok
 
 //TODO kategorija podrobno
 // button delete category
@@ -43,14 +48,12 @@ const KategorijeScreen = ({navigation}) => {
                 Authorization: `${token}` 
             };
             const response = await axios.get(`${apiURL}/users/category`, { headers });
-            
-            //! Stestirat 
-            const cats = response.data.categories
-            setAcc(cats)
-            // console.log("acc 0 ", accs[0])
+
+            const cats = response.data
+            setKategorije(cats)
         } catch (error) {
             console.log('Error: ', error)
-            Alert.alert('Error', 'Something went wrong with getting accounts!');
+            Alert.alert('Error', 'Something went wrong with getting categories!');
         }
         
     }
@@ -64,8 +67,8 @@ const KategorijeScreen = ({navigation}) => {
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
-                {KATEGORIJE.map((kategorija, index) => (
-                    <Kategorija kategorija={kategorija} key={kategorija.id} />
+                {kategorije.map((kategorija, index) => (
+                    <Kategorija kategorija={kategorija} key={kategorija._id} />
                 ))}
             </ScrollView>
             <AddKategorija 
