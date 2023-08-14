@@ -75,12 +75,34 @@ const KategorijeScreen = ({navigation}) => {
         }
     };
 
+    const handleDeleteKategorija = async (id) =>{
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+
+            const response = await axios.delete(`${apiURL}/users/category?categoryId=${id}`, { headers });
+            console.log(response.data)
+
+            // posodobimo katere racune imamo
+            const cats = kategorije.filter(kategorija => kategorija._id !== id);
+            setKategorije(cats)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with deleting category!');
+        }
+    };
+
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
             <Header navigation={navigation} onAddButtonPress={() => setIsVisible(true)} />
             <ScrollView>
                 {kategorije.map((kategorija, index) => (
-                    <Kategorija kategorija={kategorija} key={kategorija._id} />
+                    <Kategorija 
+                        kategorija={kategorija} 
+                        key={kategorija._id} 
+                        onDeletePress={handleDeleteKategorija}/>
                 ))}
             </ScrollView>
             <AddKategorija 

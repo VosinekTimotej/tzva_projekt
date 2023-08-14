@@ -332,7 +332,8 @@ router.post('/category', verifyToken, async(req,res)=>{
 router.delete('/category', verifyToken, async(req,res)=>{
     try {
         const userId = req.userId;
-        const categoryId = req.body.categoryId;
+        // const categoryId = req.body.categoryId;
+        const categoryId = req.query.categoryId
         
         // check if user exists
         const user = await User.findById(userId);
