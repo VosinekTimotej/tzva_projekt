@@ -58,9 +58,21 @@ const KategorijeScreen = ({navigation}) => {
         
     }
 
-    const handleAddKategorija = (data) => {
-        console.log('New data:', data);
-        setIsVisible(false);
+    const handleAddKategorija = async (data) => {
+        try {
+            console.log('New data:', data);
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+            const response = await axios.post(`${apiURL}/users/category`, data, { headers });
+            const cat = response.data.category;
+            setKategorije([...kategorije, cat])
+            setIsVisible(false);
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with creating new category!');
+        }
     };
 
     return (

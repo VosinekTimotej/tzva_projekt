@@ -304,7 +304,7 @@ router.get('/category', verifyToken, async (req, res) => {
 router.post('/category', verifyToken, async(req,res)=>{
     try {
         const userId = req.userId;
-        const { name, max_spend } = req.body;
+        const { name, max_spend, current } = req.body;
 
         // find user
         const user = await User.findById(userId);
@@ -313,7 +313,7 @@ router.post('/category', verifyToken, async(req,res)=>{
         }
 
         // create new category
-        const category = new Category({ name: name, max_spend: max_spend});
+        const category = new Category({ name: name, max_spend: max_spend, current: current});
         await category.save();
 
         // add category to users array
