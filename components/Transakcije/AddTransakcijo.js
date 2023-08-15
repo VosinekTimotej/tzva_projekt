@@ -4,7 +4,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import {useTranslation} from 'react-i18next';
 import '../../assets/i18n/i18n';
 
-const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
+const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme, kategorije }) => {
     const [value, setValue] = useState('');
     const [type, setType] = useState('');
     const [category, setCategory] = useState('');
@@ -18,13 +18,14 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
         const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
         const year = currentDate.getFullYear();
     
-        return `${day}.${month}.${year}`;
+        return `${day}/${month}/${year}`;
     };
 
     const handleSubmit = () => {
         const currentDate = getCurrentDate();
         onSubmit({
-            date: currentDate,
+            // date: currentDate,
+            date: new Date(),
             value: parseFloat(value),
             type: type,
             category: category,
@@ -78,13 +79,26 @@ const AddTransakcijo = ({ isVisible, onClose, onSubmit, theme }) => {
                             closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
                         />
                     </View>
-                    <TextInput
+                    <View style={{paddingBottom: 10}}>
+                        <SelectList 
+                            setSelected={(val) => setCategory(val)}
+                            data={kategorije.map(category => category.name)}
+                            save='name'
+                            boxStyles={{borderRadius:4}}
+                            inputStyles={{color: theme.textColor}}
+                            dropdownTextStyles={{color: theme.textColor}}
+                            searchicon={<Image style={styles.searchIcon} source={theme.searchSource} />}
+                            arrowicon={<Image style={styles.searchIcon} source={theme.dropdownSource} />}
+                            closeicon={<Image style={styles.searchIcon} source={theme.closeSource} />}
+                        />
+                    </View>
+                    {/* <TextInput
                         placeholder={t("Kategorija")}
                         placeholderTextColor={theme.textColor}
                         value={category}
                         onChangeText={setCategory}
                         style={[styles.input, {color: theme.textColor, paddingTop: 10}]}
-                    />
+                    /> */}
                     <TextInput
                         placeholder={t("Komentar")}
                         placeholderTextColor={theme.textColor}

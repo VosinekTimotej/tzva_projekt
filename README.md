@@ -39,6 +39,12 @@
 - [ ] Stanje screen
 - [ ] Spreminjanje valute
 - [ ] Server meje
+- [x] Category server
+- [x] Category screen (add, delete, edit, see categories)
+- [x] Ko user doda transakcijo da izbere izmed ene ze narejene kategorije ali doda tam novo
+- [x] ? Pri kategorijah mogoce da ima vsaka kategorija koliko je current stanje koliko je ze zapravil za to
+- [x] Kategorije treba prestavit in jih vezat na account ne na user
+- [x] Da ima user ko naredi account nekaj default kategorij
 
 ## TODO EXTRA
 - [x] Moznost pri dodajanu racuna da vpise id racuna ce se zeli dodat skupni racun

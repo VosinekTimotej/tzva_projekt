@@ -12,13 +12,15 @@ const AddKategorija = ({ isVisible, onClose, onSubmit }) => {
     const {t, i18n} = useTranslation();
 
     const [name, setName] = useState('');
+    const [max, setMax] = useState('');
 
     const handleSubmit = () => {
         onSubmit({
-            id: 0, 
             name: name,
-            balance: 0
+            max_spend: max,
+            current: 0
         });
+        setMax('');
         setName('');
         onClose();
     };
@@ -35,6 +37,14 @@ const AddKategorija = ({ isVisible, onClose, onSubmit }) => {
                         placeholderTextColor={theme.textColor}
                         value={name}
                         onChangeText={setName}
+                        style={[styles.input, {color: theme.textColor}]}
+                    />
+                    <TextInput
+                        placeholder={t("Max vrednost")}
+                        placeholderTextColor={theme.textColor}
+                        value={max}
+                        onChangeText={setMax}
+                        keyboardType='numeric'
                         style={[styles.input, {color: theme.textColor}]}
                     />
                     <View style={styles.buttonContainer}>

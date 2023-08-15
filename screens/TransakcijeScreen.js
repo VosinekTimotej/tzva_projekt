@@ -31,6 +31,7 @@ const TransakcijeScreen = ({navigation}) => {
     const [isAddVisiable, setIsAddVisiable] = useState(false);
 
     const [transakcije, setTransakcije] = useState([]);
+    const [kategorije, setKategorije] = useState([]);
 
     const [search, setSearch] = useState('');
     const [transactionType, setTransactionType] = useState('all');
@@ -44,8 +45,16 @@ const TransakcijeScreen = ({navigation}) => {
                 console.error('Error fetching transakcije:', error);
             }
         };
+        const fetchCategories = async () => {
+            try {
+                getCategories();
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
 
         fetchTransakcije();
+        fetchCategories();
     }, []);
 
     const getTransakcije = async () =>{
@@ -66,6 +75,22 @@ const TransakcijeScreen = ({navigation}) => {
         }
     }
 
+    const getCategories = async () =>{
+        try {
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+            const response = await axios.get(`${apiURL}/users/category`, { headers });
+
+            const cats = response.data
+            setKategorije(cats)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with getting categories!');
+        }
+        
+    }
     const createTransakcijo = async (data) => {
         try {
             const token = await AsyncStorage.getItem('userToken');
@@ -87,10 +112,46 @@ const TransakcijeScreen = ({navigation}) => {
 
             const newTransakcija = response.data.transakcija;
             setTransakcije([...transakcije, newTransakcija])
+
+            // se treba dodat pri kategoriji da se poveca strosek ce imamo cost
+            if(data.type === 'cost'){
+                data = {
+                    category: data.category,
+                    value: data.value
+                }
+                editKategorijaCurrent(data)
+            }
         } catch (error) {
             console.log('Error: ', error)
             Alert.alert('Error', 'Something went wrong with adding new transaction!');
         }
+    }
+
+    const editKategorijaCurrent = async (data) => {
+        try {
+            // console.log('moram spremeniti', data)
+            const kategorija = kategorije.find(kat => kat.name === data.category);
+            // console.log(kategorija ? kategorija._id : null)
+            if(kategorija){
+                const token = await AsyncStorage.getItem('userToken');
+                const headers = {
+                    Authorization: `${token}`
+                };
+                const id = kategorija._id
+                const current = data.value
+                const body={
+                    categoryId: id,
+                    current: current
+                }
+                const response = await axios.put(`${apiURL}/users/category`, body, { headers });
+
+                console.log(response.data)
+            }
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with changing data of category!');
+        }
+        
     }
 
     const handlePress = (transakcija) => {
@@ -183,6 +244,7 @@ const TransakcijeScreen = ({navigation}) => {
                 onClose={()=> setIsAddVisiable(false)}
                 onSubmit={handleAdd}
                 theme={theme}
+                kategorije={kategorije}
             />
             <View style={styles.footer}>
                 <Footer navigation={navigation}/>

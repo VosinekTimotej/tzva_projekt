@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User, Account, Transaction } = require('../models/Models');
+const { User, Account, Transaction, Category } = require('../models/Models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -167,11 +167,32 @@ router.put('/acc', verifyToken, async (req, res) => {
 
         // create new acc
         const account = new Account({ balance: 0, name: req.body.name, user_id: userId});
-        await account.save();
+        
+        // default categories to be added when account is created
+        const defaultCategories = [
+            { name: 'Hrana', max_spend: 500, current: 0 },
+            { name: 'Racuni', max_spend: 500, current: 0 },
+            { name: 'Osebno', max_spend: 500, current: 0 },
+            { name: 'Darilo', max_spend: 500, current: 0 },
+            { name: 'Placa', max_spend: 500, current: 0 },
+            { name: 'Narocnine', max_spend: 500, current: 0 },
+            { name: 'Potovanje', max_spend: 500, current: 0 },
+            { name: 'Dopust', max_spend: 500, current: 0 },
+            { name: 'Avto', max_spend: 500, current: 0 },
+            { name: 'Bencin', max_spend: 500, current: 0 },
+        ];
+
+        // gremo skozi default categories in jih dodamo na account
+        for (const defaultCategoryData of defaultCategories) {
+            const defaultCategory = new Category(defaultCategoryData);
+            await defaultCategory.save();
+            account.categories.push(defaultCategory._id);
+        }
 
         // add acc to users array
         user.accounts.push(account._id);
         await user.save();
+        await account.save();
 
         res.json({ msg: 'Acc added to user', account });
     }
@@ -212,6 +233,36 @@ router.put('/acc/:accId', verifyToken, async (req, res) => {
         await user.save();
         
         res.json({ msg: 'Acc added to user', account });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+// set account as active
+router.put('/activeAccount/:accId', verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const accId = req.params.accId;
+
+        // ce obstaja user
+        const user = await User.findById(userId);
+        if (!user) {
+            console.log('User ne obstaja')
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // ce obstaja acc
+        const account = await Account.findById(accId);
+        if (!account) {
+            console.log('account ne obstaja')
+            return res.status(404).json({ error: 'Account not found' });
+        }
+
+        user.active_account = account._id;
+        await user.save();
+
+        res.json({ msg: 'Account set as active', account });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error' });
@@ -266,5 +317,158 @@ router.delete('/acc', verifyToken, async (req, res)=>{
         res.status(500).json({ error: 'Internal server error' });
     }
 })
+
+// categories
+// get all categories for testing
+router.get('/categories', verifyToken, async (req, res) => {
+    try {
+        const cat = await Category.find();
+        res.json(cat);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// get all users categories
+router.get('/category', verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+        // const accId = req.query.accId;
+
+        // poiscemo user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account }).populate('categories');
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
+        // get all categories
+        const userCategories = account.categories;
+
+        res.json(userCategories);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// create and add category to user
+router.post('/category', verifyToken, async(req,res)=>{
+    try {
+        const userId = req.userId;
+        const { name, max_spend, current } = req.body;
+
+        // find user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
+        // create new category
+        const category = new Category({ name: name, max_spend: max_spend, current: current});
+        await category.save();
+
+        // add category to users array
+        account.categories.push(category._id);
+        await account.save();
+
+        res.json({ msg: 'Category added to account', category });
+
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+// delete category
+router.delete('/category', verifyToken, async(req,res)=>{
+    try {
+        const userId = req.userId;
+        // const categoryId = req.body.categoryId;
+        const categoryId = req.query.categoryId
+        
+        // check if user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
+        // check if category exists
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        // Remove from users array
+        const updatedCategories = account.categories.filter(cat => cat.toString() !== categoryId);
+        account.categories = updatedCategories;
+        await account.save();
+
+        // Delete category
+        await Category.deleteOne({ _id: categoryId });
+
+        res.json({ message: 'Category deleted successfully' });
+        
+    } catch (error) {
+        console.error('Error deleting category:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+// edit category
+// update user info
+router.put('/category', verifyToken, async (req, res) => {
+    try {
+        const { categoryId, max_spend, current } = req.body;  // ce bomo dodali da ima current vrednost
+        const userId = req.userId;
+        // const categoryId = req.body.categoryId;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
+        // check if category exists
+        const category = await Category.findById(categoryId);
+        if (!category) {
+            return res.status(404).json({ error: 'Category not found' });
+        }
+
+        if (max_spend) {category.max_spend = max_spend;}
+        if (current) {category.current = category.current+ current;} // pristejemo koliko smo zapravili
+
+        await category.save();
+
+        res.json({ msg: 'Category data updated', category });
+
+    } catch (error) {
+        console.error('Error :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 module.exports = router;
