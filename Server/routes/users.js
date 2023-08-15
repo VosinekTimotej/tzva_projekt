@@ -218,6 +218,36 @@ router.put('/acc/:accId', verifyToken, async (req, res) => {
     }
 })
 
+// set account as active
+router.put('/activeAccount/:accId', verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+        const accId = req.params.accId;
+
+        // ce obstaja user
+        const user = await User.findById(userId);
+        if (!user) {
+            console.log('User ne obstaja')
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // ce obstaja acc
+        const account = await Account.findById(accId);
+        if (!account) {
+            console.log('account ne obstaja')
+            return res.status(404).json({ error: 'Account not found' });
+        }
+
+        user.active_account = account._id;
+        await user.save();
+        
+        res.json({ msg: 'Account set as active', account });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 // get all acc data for user
 router.get('/acc', verifyToken, async (req, res) => {
     try {
@@ -283,15 +313,22 @@ router.get('/categories', verifyToken, async (req, res) => {
 router.get('/category', verifyToken, async (req, res) => {
     try {
         const userId = req.userId;
+        // const accId = req.query.accId;
 
         // poiscemo user
-        const user = await User.findById(userId).populate('categories');
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account }).populate('categories');
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
         // get all categories
-        const userCategories = user.categories;
+        const userCategories = account.categories;
 
         res.json(userCategories);
     } catch (error) {
@@ -312,15 +349,21 @@ router.post('/category', verifyToken, async(req,res)=>{
             return res.status(404).json({ error: 'User not found' });
         }
 
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
         // create new category
         const category = new Category({ name: name, max_spend: max_spend, current: current});
         await category.save();
 
         // add category to users array
-        user.categories.push(category._id);
-        await user.save();
+        account.categories.push(category._id);
+        await account.save();
 
-        res.json({ msg: 'Category added to user', category });
+        res.json({ msg: 'Category added to account', category });
 
     } catch (error) {
         console.error('Error fetching categories:', error);
@@ -340,7 +383,13 @@ router.delete('/category', verifyToken, async(req,res)=>{
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
-        
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
+        }
+
         // check if category exists
         const category = await Category.findById(categoryId);
         if (!category) {
@@ -348,9 +397,9 @@ router.delete('/category', verifyToken, async(req,res)=>{
         }
 
         // Remove from users array
-        const updatedCategories = user.categories.filter(cat => cat.toString() !== categoryId);
-        user.categories = updatedCategories;
-        await user.save();
+        const updatedCategories = account.categories.filter(cat => cat.toString() !== categoryId);
+        account.categories = updatedCategories;
+        await account.save();
 
         // Delete category
         await Category.deleteOne({ _id: categoryId });
@@ -374,6 +423,12 @@ router.put('/category', verifyToken, async (req, res) => {
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
+        }
+
+        // poiscemo account
+        const account = await Account.findOne({ _id: user.active_account});
+        if (!account) {
+            return res.status(404).json({ error: 'Account not found or does not belong to the user' });
         }
 
         // check if category exists

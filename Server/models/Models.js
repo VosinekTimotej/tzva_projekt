@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema({
     active_account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account'},
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
     birth_day: { type: Date },
-    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
 });
 
 const accountSchema = new mongoose.Schema({
     name: { type: String, default: "My account" },
     balance: { type: Number, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    categories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
 });
 
 const transactionSchema = new mongoose.Schema({

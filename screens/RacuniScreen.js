@@ -66,7 +66,7 @@ const RacuniScreen = ({navigation}) => {
             const response = await axios.put(`${apiURL}/users/acc`, data, { headers });
             // console.log('New account created:', response.data.account);
             const newAcc = response.data.account;
-            setActiveAccount(newAcc._id);
+            setAsActive(newAcc._id);
             await AsyncStorage.setItem('activeAcc', newAcc._id);
             setAcc([...acc, newAcc])
             setIsVisible(false);
@@ -96,8 +96,24 @@ const RacuniScreen = ({navigation}) => {
     }
 
     const handleAccountPress = async (account) => {
-        setActiveAccount(account);
+        setAsActive(account)
     };
+
+    const setAsActive = async (id) =>{
+        try {
+            setActiveAccount(id);
+            const token = await AsyncStorage.getItem('userToken');
+            const headers = {
+                Authorization: `${token}` 
+            };
+            // console.log(`${apiURL}/users/activeAccount/${id}`)
+            const response = await axios.put(`${apiURL}/users/activeAccount/${id}`, {}, { headers });
+            // console.log(response.data)
+        } catch (error) {
+            console.log('Error: ', error)
+            Alert.alert('Error', 'Something went wrong with setting active accout!');
+        }
+    }
 
     const handleAccountDelete = async (accountId) =>{
         try {
