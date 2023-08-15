@@ -167,11 +167,32 @@ router.put('/acc', verifyToken, async (req, res) => {
 
         // create new acc
         const account = new Account({ balance: 0, name: req.body.name, user_id: userId});
-        await account.save();
+        
+        // default categories to be added when account is created
+        const defaultCategories = [
+            { name: 'Hrana', max_spend: 500, current: 0 },
+            { name: 'Racuni', max_spend: 500, current: 0 },
+            { name: 'Osebno', max_spend: 500, current: 0 },
+            { name: 'Darilo', max_spend: 500, current: 0 },
+            { name: 'Placa', max_spend: 500, current: 0 },
+            { name: 'Narocnine', max_spend: 500, current: 0 },
+            { name: 'Potovanje', max_spend: 500, current: 0 },
+            { name: 'Dopust', max_spend: 500, current: 0 },
+            { name: 'Avto', max_spend: 500, current: 0 },
+            { name: 'Bencin', max_spend: 500, current: 0 },
+        ];
+
+        // gremo skozi default categories in jih dodamo na account
+        for (const defaultCategoryData of defaultCategories) {
+            const defaultCategory = new Category(defaultCategoryData);
+            await defaultCategory.save();
+            account.categories.push(defaultCategory._id);
+        }
 
         // add acc to users array
         user.accounts.push(account._id);
         await user.save();
+        await account.save();
 
         res.json({ msg: 'Acc added to user', account });
     }
@@ -240,7 +261,7 @@ router.put('/activeAccount/:accId', verifyToken, async (req, res) => {
 
         user.active_account = account._id;
         await user.save();
-        
+
         res.json({ msg: 'Account set as active', account });
     } catch (error) {
         console.error('Error:', error);
