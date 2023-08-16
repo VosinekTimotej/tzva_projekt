@@ -99,7 +99,7 @@ const SettingsScreen = ({navigation}) => {
 
             <TouchableOpacity onPress={handleLogout}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
-                    <Text style={[styles.text, { color: theme.textColor }]}>Odjava</Text>
+                    <Text style={[styles.text, { color: theme.textColor }]}>{t("Odjava")}</Text>
                 </View>
             </TouchableOpacity>
             </View>            

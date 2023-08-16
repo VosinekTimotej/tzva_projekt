@@ -1,6 +1,6 @@
 const DarkTheme = {
     // basic
-    backgroundColor: 'black',
+    backgroundColor: '#1f1b24',
     textColor: 'white',
     logoSource: require('./assets/piggy-bank-darkTheme.png'),
     settingsSource: require('./assets/setting-darkTheme.png'),

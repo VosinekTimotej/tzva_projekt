@@ -1,6 +1,6 @@
 const LightTheme = {
     // basic
-    backgroundColor: 'white',
+    backgroundColor: '#E5E5E5',
     textColor: 'black',
     logoSource: require('./assets/piggy-bank.png'),
     settingsSource: require('./assets/setting.png'),

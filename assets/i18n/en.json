@@ -16,7 +16,7 @@
       "Nastavljanje mej":"Limits",
       "Spreminjanje valute":"Change currency",
       "Svetel način":"Light theme",
-      "Temen način": "dark theme",
+      "Temen način": "Dark theme",
       "Informacije": "Information",
       "Dohodki":"Income",
       "Odhodki":"Outcome",
@@ -38,6 +38,9 @@
       "Dodaj mejo":"Add limit",
       "Max vsota": "Max ammount",
       "Meje":"Limits",
-      "Kategorije":"Categories"
+      "Kategorije":"Categories",
+      "Dodaj kategorijo": "Add category",
+      "Max vrednost": "Max value",
+      "Odjava": "Sign out"
     }
   }
