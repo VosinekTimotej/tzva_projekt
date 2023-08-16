@@ -41,6 +41,8 @@
       "Kategorije":"Categories",
       "Dodaj kategorijo": "Add category",
       "Max vrednost": "Max value",
-      "Odjava": "Sign out"
+      "Odjava": "Sign out",
+      "Spremeni orientacijo v portret.": "Change orientation to portrait.",
+      "Spremeni orientacijo v pokrajina.": "Change orientation to landscape."
     }
   }

@@ -59,11 +59,7 @@ const SettingsScreen = ({navigation}) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{ console.log('Nastavi valuto')}}>
-                <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
-                    <Text style={[styles.text, { color: theme.textColor }]}>{t("Spreminjanje valute")}</Text>
-                </View>
-            </TouchableOpacity>
+            
 
             <TouchableOpacity onPress={toggleTheme}>
                 <View style={[styles.settingContainer, {backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor }]}>
