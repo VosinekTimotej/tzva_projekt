@@ -13,17 +13,17 @@ const Footer = ({navigation}) => {
     const route = useRoute();
     const {t, i18n} = useTranslation();
 
-    const barvaT = (route.name === "TransakcijeScreen") ? "grey" : "white"
-    const barvaS = (route.name === "StanjeScreen") ? "grey" : "white"
-    const barvaK = (route.name === "KategorijeScreen") ? "grey" : "white"
+    const barvaT = (route.name === "TransakcijeScreen") ? "grey" : theme.backgroundColor
+    const barvaS = (route.name === "StanjeScreen") ? "grey" : theme.backgroundColor
+    const barvaK = (route.name === "KategorijeScreen") ? "grey" : theme.backgroundColor
     
     
 
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={[styles.box, { backgroundColor: barvaS}]} >
-            <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
-            <Text style={[styles.text, { color: theme.textColor }]}>{t("Stanje")}</Text>
+            <TouchableOpacity onPress={() => navigation.push('MejeScreen')}>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Meje")}</Text>
             </TouchableOpacity>
             </View>
             <View style={[styles.box, { backgroundColor: barvaT}]}>
