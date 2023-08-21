@@ -16,11 +16,14 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IP} from "@env"
+import {useTranslation} from 'react-i18next';
+import '../assets/i18n/i18n';
 
 const apiURL = 'http:'+process.env.IP+':5000' // Rok 
 
 const TransakcijeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
+    const {t, i18n} = useTranslation();
     const theme = isDarkTheme ? DarkTheme : LightTheme;
 
     // podrobno screen
