@@ -196,7 +196,7 @@ const TransakcijeScreen = ({navigation}) => {
             <View style={styles.searchContainer}>
                 <TextInput
                     style={[styles.searchInput, { color: theme.textColor }]}
-                    placeholder="Search transactions"
+                    placeholder={t("Jezik")}  //"Search transactions"
                     placeholderTextColor={theme.textColor}
                     value={search}
                     onChangeText={setSearch}

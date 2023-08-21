@@ -12,6 +12,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {IP} from "@env"
 
+import {useTranslation} from 'react-i18next';
+import '../assets/i18n/i18n';
 
 const apiURL = 'http:'+process.env.IP+':5000' // Rok 
 
@@ -20,6 +22,7 @@ const apiURL = 'http:'+process.env.IP+':5000' // Rok
 const PasswordChangeScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
 
     const schema = Yup.object().shape({
         password: Yup.string()
@@ -66,7 +69,7 @@ const PasswordChangeScreen = ({navigation}) => {
                             <Text style={styles.errorText}>{errors.password}</Text>
                         )}
                         <TextInput
-                            placeholder='Password'
+                            placeholder={t("Geslo")}
                             textContentType='password'
                             placeholderTextColor={theme.textColor}
                             onChangeText={handleChange('password')}
@@ -77,7 +80,7 @@ const PasswordChangeScreen = ({navigation}) => {
                         />
                         <View style={styles.buttonContainer}>
                             <Button
-                                title='Add' 
+                                title={t("Posodobi")} 
                                 onPress={handleSubmit} 
                                 color={theme.ButtonColor}
                                 disabled={!isValid}

@@ -12,9 +12,13 @@ import {IP} from "@env"
 
 const apiURL = 'http:'+process.env.IP+':5000' // Rok
 
+import {useTranslation} from 'react-i18next';
+import '../assets/i18n/i18n';
+
 const UserInfoScreen = ({navigation}) => {
     const { isDarkTheme } = useContext(ThemeContext);
     const theme = isDarkTheme ? DarkTheme : LightTheme;
+    const {t, i18n} = useTranslation();
 
     const [name,setName] = useState('');
     const [surname,setSurname] = useState('');
@@ -61,14 +65,14 @@ const UserInfoScreen = ({navigation}) => {
             <Header navigation={navigation} theme={theme} />
             <View style={[styles.content, {backgroundColor: theme.backgroundColor}]}>
                 <TextInput
-                    placeholder='Name'
+                    placeholder={t("Ime")}
                     placeholderTextColor={theme.textColor}
                     value={name}
                     onChangeText={setName}
                     style={[styles.input, {color: theme.textColor}]}
                 />
                 <TextInput
-                    placeholder='Surname'
+                    placeholder={t("Priimek")}
                     placeholderTextColor={theme.textColor}
                     value={surname}
                     onChangeText={setSurname}
@@ -78,7 +82,7 @@ const UserInfoScreen = ({navigation}) => {
             </View>
                 <View style={styles.buttonContainer}>
                     <Button
-                        title='Update' 
+                        title={t("Posodobi")} 
                         onPress={handleSubmit} 
                         color={theme.ButtonColor}
                     />

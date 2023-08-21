@@ -1,7 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
+import {useTranslation} from 'react-i18next';
+import '../assets/i18n/i18n';
+
 const Header = ({navigation, theme}) => {
+    const {t, i18n} = useTranslation();
     return (
         <View style={[styles.container, { backgroundColor: theme.backgroundColor, borderBottomColor: theme.borderBottomColor  }]}>
             <View style={styles.backContainer}>
@@ -12,7 +16,7 @@ const Header = ({navigation, theme}) => {
                     />
                 </TouchableOpacity>
             </View>
-            <Text style={[styles.text, { color: theme.textColor }]}>Change Password</Text>
+            <Text style={[styles.text, { color: theme.textColor }]}>{t("Spremeni geslo")}</Text>
             <View>
                 <Text> </Text>
             </View>

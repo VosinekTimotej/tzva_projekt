@@ -100,7 +100,7 @@ const LoginForm = ({navigation}) => {
                     </View>
         
                     <View style={styles.signUpContainer}>
-                        <Text>Dont have account? </Text>
+                        <Text>Don't have account? </Text>
                         <TouchableOpacity onPress={() => navigation.push('SignUpScreen')}>
                             <Text style={styles.signUpText}>Sign Up</Text>
                         </TouchableOpacity>
