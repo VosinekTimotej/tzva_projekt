@@ -5,15 +5,15 @@
 - Ustvarjanje .env datoteke v mapi Server v katero vpisemo port, mongodb url & jwt secret key
 ```
 PORT=5000
-MOGODB_URL=
+MONGODB_URL=
 JWT_SECRET=
 ```
 - Ustvarjanje dodatne .env datoteke v korenski mapi v katero vpisamo svoj IP naslov (glej naslov [Server nastavitve](#server-nastavitve))
 ```
 IP=
 ```
-- Odpremo terminal v mapi Server in pozenemo server ``` npm start ```
-- Odpremo terminal v korenski mapi in pozenemo celotno aplikacijo s ``` npm start ```
+- Odpremo terminal v mapi Server in pozenemo server ``` npm install ``` in nato ``` npm start ```
+- Odpremo terminal v korenski mapi in pozenemo ``` npm install ``` in nato zaženeco celotno aplikacijo s ``` npm start ```
 - Se odlocimo ali pozenemo android emulator (v primeru da imamo namescenega) ali preko mobilne aplikacije scan qr kodo (prav tako moramo namestiti expo mobile app)
 
 ## Navodila za zagon aplikacije
