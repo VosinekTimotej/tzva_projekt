@@ -17,7 +17,7 @@ app.use('/transactions', transakcijeRoute)
 
 const port = process.env.PORT || 5000;
 const atlas_geslo = process.env.ATLAS_GESLO
-const url = "mongodb+srv://Rok:"+ atlas_geslo +"@cluster0.vc1wigh.mongodb.net/TVA";
+const url = process.env.MONGODB_URL;
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true});
 
 
