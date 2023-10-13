@@ -1,5 +1,21 @@
 # tzva_projekt
 
+## Navodila za namestitev aplikacije
+- Namestitev kode s Github - git clone git@github.com:VosinekTimotej/tzva_projekt.git
+- Ustvarjanje .env datoteke v mapi Server v katero vpisemo port, mongodb url & jwt secret key
+```
+PORT=5000
+MOGODB_URL=
+JWT_SECRET=
+```
+- Ustvarjanje dodatne .env datoteke v korenski mapi v katero vpisamo svoj IP naslov (glej naslov [Server nastavitve](#server-nastavitve))
+```
+IP=
+```
+- Odpremo terminal v mapi Server in pozenemo server ``` npm start ```
+- Odpremo terminal v korenski mapi in pozenemo celotno aplikacijo s ``` npm start ```
+- Se odlocimo ali pozenemo android emulator (v primeru da imamo namescenega) ali preko mobilne aplikacije scan qr kodo (prav tako moramo namestiti expo mobile app)
+
 ## Navodila za zagon aplikacije
 - ``` Run npm start ``` 
 - Na telefonu si instaliraj expo go
@@ -57,6 +73,10 @@
 ## Server nastavitve
 - V CMD ipconfig da dobis svoj IPv4 naslov
 - V korensko mapo dodaj .env file z spremenljivko IP=(vpiši svoj IPv4)
+- Primer
+```
+IP=192.168.1.15
+```
 
 ### Icons:
 - <img src="/assets/add.png" alt="Add icon" width="20" height="20" /> <a href="https://www.flaticon.com/free-icons/plus" title="plus icons">Plus icons created by dmitri13 - Flaticon</a>
